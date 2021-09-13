@@ -1,12 +1,5 @@
 {
   "/_app": "pages/_app.js",
-  "/api/hello": "pages/api/hello.js",
-  "/api/statistic/getAllStatistic": "pages/api/statistic/getAllStatistic.js",
-  "/api/statistic/getCountryStatistic": "pages/api/statistic/getCountryStatistic.js",
-  "/api/statistic/getLocalSkuMidList": "pages/api/statistic/getLocalSkuMidList.js",
-  "/api/statistic/getSkuStatistic": "pages/api/statistic/getSkuStatistic.js",
-  "/": "pages/index.html",
   "/_error": "pages/_error.js",
-  "/_document": "pages/_document.js",
-  "/404": "pages/404.html"
+  "/_document": "pages/_document.js"
 }

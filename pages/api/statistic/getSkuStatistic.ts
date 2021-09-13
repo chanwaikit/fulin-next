@@ -2,7 +2,6 @@ import apiHandler from "../../../utils.server";
 import { NextApiRequest, NextApiResponse } from "next";
 import getProfitLists from "../../../utils/getProfitLists";
 import dayjs from 'dayjs';
-import nc from 'next-connect'
 import prisma from '../../../lib/prisma'
 
 

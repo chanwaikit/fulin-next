@@ -7,40 +7,81 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model SequelizeMeta {
-  name String @id @unique @db.VarChar(255)
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model ad_campaign_report_sb {
+  date           String? @db.Text
+  campaign_id    String? @db.Text
+  campaign_name  String? @db.Text
+  currency_code  String? @db.Text
+  creative_type  String? @db.Text
+  impressions    String? @db.Text
+  clicks         String? @db.Text
+  cost           String? @db.Text
+  order_quantity String? @db.Text
+  sales_amount   String? @db.Text
+  ctr            String? @db.Text
+  cpc            String? @db.Text
+  cvr            String? @db.Text
+  cpa            String? @db.Text
+  acos           String? @db.Text
+
+  @@ignore
 }
 
-model ad_positions {
-  pid                    String  @id @db.VarChar(255)
-  asin                   String? @db.VarChar(255)
-  time_str               String? @db.VarChar(255)
-  keywords               String? @db.VarChar(255)
-  bid                    String? @db.VarChar(255)
-  phone_sp_sum           String? @db.VarChar(255)
-  sp_sum                 String? @db.VarChar(255)
-  phone_natural_sum      String? @db.VarChar(255)
-  natural_sum            String? @db.VarChar(255)
-  phone_sp_all_sum       String? @db.VarChar(255)
-  sp_all_sum             String? @db.VarChar(255)
-  phone_natural_all_sum  String? @db.VarChar(255)
-  natural_all_sum        String? @db.VarChar(255)
-  phone_sp_sort          String? @db.VarChar(255)
-  sp_sort                String? @db.VarChar(255)
-  phone_sp_all_sort      String? @db.VarChar(255)
-  sp_all_sort            String? @db.VarChar(255)
-  phone_natural_sort     String? @db.VarChar(255)
-  natural_sort           String? @db.VarChar(255)
-  phone_natural_all_sort String? @db.VarChar(255)
-  natural_all_sort       String? @db.VarChar(255)
-  phone_sp_all_page      String? @db.VarChar(255)
-  sp_all_page            String? @db.VarChar(255)
-  phone_sp_page          String? @db.VarChar(255)
-  sp_page                String? @db.VarChar(255)
-  phone_natural_all_page String? @db.VarChar(255)
-  natural_all_page       String? @db.VarChar(255)
-  phone_natural_page     String? @db.VarChar(255)
-  natural_page           String? @db.VarChar(255)
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model ad_product_report_sp_group {
+  date            String? @db.Text
+  ad_group_id     String? @db.Text
+  ad_group_name   String? @db.Text
+  campaign_id     String? @db.Text
+  campaign_name   String? @db.Text
+  ad_id           String? @db.Text
+  currency_code   String? @db.Text
+  small_image_url String? @db.Text
+  local_sku       String? @db.Text
+  local_name      String? @db.Text
+  sku             String? @db.Text
+  asin            String? @db.Text
+  impressions     String? @db.Text
+  clicks          String? @db.Text
+  cost            String? @db.Text
+  order_quantity  String? @db.Text
+  sales_amount    String? @db.Text
+  ctr             String? @db.Text
+  cpc             String? @db.Text
+  cvr             String? @db.Text
+  cpa             String? @db.Text
+  acos            String? @db.Text
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model ad_products_sd {
+  date           String? @db.Text
+  asin           String? @db.Text
+  sku            String? @db.Text
+  serving_status String? @db.Text
+  ad_group_id    String? @db.Text
+  campaign_id    String? @db.Text
+  image_url      String? @db.Text
+  currency_code  String? @db.Text
+  campaign_name  String? @db.Text
+  group_name     String? @db.Text
+  type           String? @db.Text
+  impressions    String? @db.Text
+  clicks         String? @db.Text
+  cost           String? @db.Text
+  order_num      String? @db.Text
+  sales_amount   String? @db.Text
+  ctr            String? @db.Text
+  cpc            String? @db.Text
+  cvr            String? @db.Text
+  cpa            String? @db.Text
+  acos           String? @db.Text
+  roas           String? @db.Text
+
+  @@ignore
 }
 
 model categories {
@@ -48,39 +89,111 @@ model categories {
   title String? @db.VarChar(255)
 }
 
-model entries {
-  id         Int      @id @default(autoincrement())
-  title      String   @db.Text
-  content    String   @db.Text
-  created_at DateTime @default(now()) @db.Timestamp(0)
-  updated_at DateTime @default(now()) @db.Timestamp(0)
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model cost_collection {
+  date              String? @db.Text
+  shop_name         String? @db.Text
+  asin1             String? @db.VarChar(45)
+  asin2             String? @db.VarChar(45)
+  asin3             String? @db.VarChar(45)
+  currency_code     String? @db.VarChar(45)
+  cost_collection   String? @db.VarChar(45)
+  orders_collection String? @db.VarChar(45)
+
+  @@ignore
 }
 
-model jobs {
-  id            Int       @id @default(autoincrement())
-  userId        Int?
-  title         String?   @db.VarChar(255)
-  slug          String?   @db.VarChar(255)
-  content       String?   @db.Text
-  emailTo       String?   @db.VarChar(255)
-  reportManager String?   @db.VarChar(255)
-  dateLimit     DateTime? @db.DateTime(0)
-  status        Boolean?
-  createdAt     DateTime  @db.DateTime(0)
-  updatedAt     DateTime  @db.DateTime(0)
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model cost_sbv {
+  date          String? @db.Text
+  sid           String? @db.Text
+  shop_name     String? @db.Text
+  campaign_id   String? @db.Text
+  currency_code String? @db.Text
+  asin          String? @db.Text
+  cost_sbv      String? @db.Text
+  orders_sbv    String? @db.Text
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model cost_sbv1 {
+  date          String? @db.Text
+  sid           String? @db.Text
+  shop_name     String? @db.Text
+  currency_code String? @db.Text
+  asin          String? @db.Text
+  cost_sbv      String? @db.Text
+  orders_sbv    String? @db.Text
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model cost_sd {
+  date          String? @db.Text
+  sid           String? @db.Text
+  shop_name     String? @db.Text
+  currency_code String? @db.Text
+  asin          String? @db.Text
+  sku           String? @db.Text
+  cost_sd       Float?
+  orders_sd     Int?
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model cost_sp {
+  date          String? @db.Text
+  campaign_id   BigInt?
+  currency_code String? @db.Text
+  local_sku     String? @db.Text
+  local_name    String? @db.Text
+  sku           String? @db.Text
+  asin          String? @db.Text
+  cost_sp       Float?
+  orders_sp     Int?
+  amount_sp     Float?
+
+  @@ignore
+}
+
+
+
+
+model local_shop_lists {
+  sid                     String                    @id @db.VarChar(255)
+  country                 String?                   @db.VarChar(255)
+  country_code            String?                   @db.VarChar(255)
+  currency_code           String?                   @db.VarChar(255)
+  currency_icon           String?                   @db.VarChar(255)
+  daily_budget            String?                   @db.VarChar(255)
+  id                      String?                   @db.VarChar(255)
+  mapped_timezone         String?                   @db.VarChar(255)
+  mid                     String?                   @db.VarChar(255)
+  name                    String?                   @db.VarChar(255)
+  profile_id              String?                   @db.VarChar(255)
+  region                  String?                   @db.VarChar(255)
+  timezone                String?                   @db.VarChar(255)
+  local_sku_mid_sb_groups local_sku_mid_sb_groups[]
+  local_sku_mid_sp_groups local_sku_mid_sp_groups[]
 }
 
 model local_sku_mid_lists {
-  local_sku_mid String  @id @db.VarChar(255)
-  mid           String? @db.VarChar(255)
-  local_sku     String? @db.VarChar(255)
-  local_name    String? @db.VarChar(255)
-  cid           String? @db.VarChar(255)
-  category_text String? @db.VarChar(255)
-  country       String? @db.VarChar(255)
-  code          String? @db.VarChar(255)
-  icon          String? @db.VarChar(255)
-  bid           String? @db.VarChar(255)
+  local_sku_mid                   String                            @id @db.VarChar(255)
+  mid                             String?                           @db.VarChar(255)
+  local_sku                       String?                           @db.VarChar(255)
+  local_name                      String?                           @db.VarChar(255)
+  cid                             String?                           @db.VarChar(255)
+  category_text                   String?                           @db.VarChar(255)
+  country                         String?                           @db.VarChar(255)
+  code                            String?                           @db.VarChar(255)
+  icon                            String?                           @db.VarChar(255)
+  bid                             String?                           @db.VarChar(255)
+  local_sku_mid_sp_groups         local_sku_mid_sp_groups[]
+  local_sku_mid_through_sb_tables local_sku_mid_through_sb_tables[]
 }
 
 model local_sku_mid_profit_lists {
@@ -131,192 +244,306 @@ model local_sku_mid_profit_lists {
 }
 
 model local_sku_mid_sb_groups {
-  portfolio_id String  @id @db.VarChar(255)
-  name         String? @db.VarChar(255)
-  profile_id   String? @db.VarChar(255)
-  sid          String? @db.VarChar(255)
-  type         String? @db.VarChar(255)
+  portfolio_id                    String                            @id @db.VarChar(255)
+  name                            String?                           @db.VarChar(255)
+  profile_id                      String?                           @db.VarChar(255)
+  sid                             String?                           @db.VarChar(255)
+  type                            String?                           @db.VarChar(255)
+  local_shop_lists                local_shop_lists?                 @relation(fields: [sid], references: [sid], onDelete: NoAction, onUpdate: NoAction, map: "local_sku_mid_sb_groups_ibfk_1")
+  local_sku_mid_through_sb_tables local_sku_mid_through_sb_tables[]
+
+  @@index([sid], map: "sid")
 }
 
-model local_sku_mid_tables {
-  local_sku_mid_date              String  @id @db.VarChar(255)
-  asin1                           String? @db.VarChar(255)
-  bid                             String? @db.VarChar(255)
-  cid                             String? @db.VarChar(255)
-  category_text                   String? @db.VarChar(255)
-  code                            String? @db.VarChar(255)
-  cg_price_amazon_order           String? @db.VarChar(255)
-  cg_transport_costs_amazon_order String? @db.VarChar(255)
-  channel_fee                     String? @db.VarChar(255)
-  commission_amount               String? @db.VarChar(255)
-  fba_shipment                    String? @db.VarChar(255)
-  promotion_amount                String? @db.VarChar(255)
-  refund_amount                   String? @db.VarChar(255)
-  refund_num                      String? @db.VarChar(255)
-  seller_name                     String? @db.VarChar(255)
-  seller                          String? @db.VarChar(255)
-  total_volume                    String? @db.VarChar(255)
-  total_amount                    String? @db.VarChar(255)
-  total_spend                     String? @db.VarChar(255)
-  local_name                      String? @db.VarChar(255)
-  local_sku                       String? @db.VarChar(255)
-  msku                            String? @db.VarChar(255)
-  replenishment_num               String? @db.VarChar(255)
-  multi_channel_fee               String? @db.VarChar(255)
-  order_quantity                  String? @db.VarChar(255)
-  sales_amount                    String? @db.VarChar(255)
-  cg_price_replenishment          String? @db.VarChar(255)
-  other_order_fee                 String? @db.VarChar(255)
-  total_cg_transport_costs        String? @db.VarChar(255)
-  gross_profit                    String? @db.VarChar(255)
-  date_str                        String? @db.VarChar(255)
+model local_sku_mid_sp_groups {
+  portfolio_id        String               @id @db.VarChar(255)
+  name                String?              @db.VarChar(255)
+  profile_id          String?              @db.VarChar(255)
+  sid                 String?              @db.VarChar(255)
+  type                String?              @db.VarChar(255)
+  local_sku_sid       String?              @db.VarChar(255)
+  local_sku_mid       String?              @db.VarChar(255)
+  local_sku_mid_lists local_sku_mid_lists? @relation(fields: [local_sku_mid], references: [local_sku_mid], onDelete: Restrict, onUpdate: Restrict, map: "local_sku_mid_sp_groups_ibfk_1")
+  local_shop_lists    local_shop_lists?    @relation(fields: [sid], references: [sid], onDelete: Restrict, onUpdate: Restrict, map: "local_sku_mid_sp_groups_ibfk_2")
+
+  @@index([local_sku_mid], map: "local_sku_mid")
+  @@index([sid], map: "local_sku_mid_sp_groups_ibfk_2")
 }
 
 model local_sku_mid_through_sb_tables {
-  portfolio_id  String  @db.VarChar(255)
-  name          String? @db.VarChar(255)
-  local_sku_mid String  @db.VarChar(255)
+  portfolio_id            String                  @db.VarChar(255)
+  name                    String?                 @db.VarChar(255)
+  local_sku_mid           String                  @db.VarChar(255)
+  local_sku_mid_lists     local_sku_mid_lists     @relation(fields: [local_sku_mid], references: [local_sku_mid], onDelete: NoAction, onUpdate: NoAction, map: "local_sku_mid_through_sb_tables_ibfk_2")
+  local_sku_mid_sb_groups local_sku_mid_sb_groups @relation(fields: [portfolio_id], references: [portfolio_id], onDelete: NoAction, onUpdate: NoAction, map: "local_sku_mid_through_sb_tables_ibfk_1")
 
   @@id([portfolio_id, local_sku_mid])
+  @@index([local_sku_mid], map: "local_sku_mid")
 }
 
-model order_lists {
-  amazon_order_id         String? @db.VarChar(255)
-  amazon_order_id_pid     String  @id @db.VarChar(255)
-  merchant_order_id       String? @db.VarChar(255)
-  last_updated_time       String? @db.VarChar(255)
-  purchase_date           String? @db.VarChar(255)
-  purchase_date_locale    String? @db.VarChar(255)
-  order_status            String? @db.VarChar(255)
-  fulfillment_channel     String? @db.VarChar(255)
-  sales_channel           String? @db.VarChar(255)
-  order_channel           String? @db.VarChar(255)
-  url                     String? @db.VarChar(255)
-  ship_service_level      String? @db.VarChar(255)
-  sku                     String? @db.VarChar(255)
-  asin                    String? @db.VarChar(255)
-  product_name            String? @db.VarChar(255)
-  item_status             String? @db.VarChar(255)
-  quantity                String? @db.VarChar(255)
-  currency                String? @db.VarChar(255)
-  item_price              String? @db.VarChar(10)
-  item_tax                String? @db.VarChar(255)
-  shipping_price          String? @db.VarChar(10)
-  shipping_tax            String? @db.VarChar(255)
-  gift_wrap_price         String? @db.VarChar(10)
-  gift_wrap_tax           String? @db.VarChar(255)
-  item_promotion_discount String? @db.VarChar(255)
-  ship_promotion_discount String? @db.VarChar(255)
-  ship_city               String? @db.VarChar(255)
-  pid                     String? @db.VarChar(255)
-  ship_state              String? @db.VarChar(255)
-  ship_postal_code        String? @db.VarChar(255)
-  ship_country            String? @db.VarChar(255)
-  promotion_ids           String? @db.VarChar(255)
-  local_sku               String? @db.VarChar(255)
-  local_name              String? @db.VarChar(255)
-  sid                     String? @db.VarChar(255)
-  purchase_date_local     String? @db.VarChar(255)
-  hidden_condition_field  String? @db.VarChar(255)
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model mapping_collection {
+  campign_id    BigInt?
+  sid           Int?
+  shop_name     String? @db.Text
+  campaign_name String? @db.Text
+  currency_code String? @db.Text
+  asin1         String? @db.Text
+  asin2         String? @db.Text
+  asin3         String? @db.Text
+
+  @@ignore
 }
 
-model posts {
-  id        Int      @id @default(autoincrement())
-  userId    Int?
-  title     String?  @db.VarChar(255)
-  slug      String?  @db.VarChar(255)
-  content   String?  @db.Text
-  status    Boolean?
-  createdAt DateTime @db.DateTime(0)
-  updatedAt DateTime @db.DateTime(0)
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model mapping_sbv {
+  sid           Int?
+  shop_name     String? @db.Text
+  country       String? @db.Text
+  campaign_id   BigInt?
+  campaign_name String? @db.Text
+  asin          String? @db.Text
+
+  @@ignore
 }
 
-model product_expressions {
-  expression_id            String  @id @db.VarChar(255)
-  asin                     String? @db.VarChar(255)
-  sid                      String? @db.VarChar(255)
-  seller_name              String? @db.VarChar(255)
-  seller_simple_name       String? @db.VarChar(255)
-  sessions                 String? @db.VarChar(255)
-  afn_fulfillable_quantity String? @db.VarChar(255)
-  amount                   String? @db.VarChar(255)
-  bid                      String? @db.VarChar(255)
-  category                 String? @db.VarChar(255)
-  category_text            String? @db.VarChar(255)
-  cid                      String? @db.VarChar(255)
-  order_items              String? @db.VarChar(255)
-  pid                      String? @db.VarChar(255)
-  product_brand_text       String? @db.VarChar(255)
-  small_image_url          String? @db.VarChar(255)
-  volume                   String? @db.VarChar(255)
-  local_sku_sid            String? @db.VarChar(255)
-  pid_sid                  String? @db.VarChar(255)
-  date_str                 String? @db.VarChar(255)
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model mapping_sd {
+  sid           Int?
+  shop_name     String? @db.Text
+  currency_code String? @db.Text
+  asin          String? @db.Text
+  sku           String? @db.Text
+
+  @@ignore
 }
 
-model profit_lists {
-  order_id_sku                String  @id @db.VarChar(255)
-  settlement_id               String? @db.VarChar(255)
-  sid                         String? @db.VarChar(255)
-  date_locale                 String? @db.VarChar(255)
-  order_id                    String? @db.VarChar(255)
-  sku                         String? @db.VarChar(255)
-  quantity                    String? @db.VarChar(255)
-  product_sales               String? @db.VarChar(255)
-  product_tax                 String? @db.VarChar(255)
-  currency                    String? @db.VarChar(255)
-  shipping_credits            String? @db.VarChar(255)
-  shipping_credits_tax        String? @db.VarChar(255)
-  gift_wrap_credits           String? @db.VarChar(255)
-  promotional_rebates         String? @db.VarChar(255)
-  promotional_rebates_tax     String? @db.VarChar(255)
-  sales_tax_collected         String? @db.VarChar(255)
-  marketplace_facilitator_tax String? @db.VarChar(255)
-  selling_fees                String? @db.VarChar(255)
-  fba_fees                    String? @db.VarChar(255)
-  other_transaction_fees      String? @db.VarChar(255)
-  other                       String? @db.VarChar(255)
-  total                       String? @db.VarChar(255)
-  type                        String? @db.VarChar(255)
-  type_str                    String? @db.VarChar(255)
-  marketplace                 String? @db.VarChar(255)
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model performance {
+  date                           DateTime? @db.Date
+  sid                            String?   @db.Text
+  shop_name                      String?   @db.Text
+  pid                            String?   @db.Text
+  price                          String?   @db.Text
+  cid                            String?   @db.Text
+  bid                            String?   @db.Text
+  avaiable_days                  String?   @db.Text
+  order_items                    String?   @db.Text
+  volume                         String?   @db.Text
+  amount                         String?   @db.Text
+  sessions                       String?   @db.Text
+  buy_box_percentage             String?   @db.Text
+  page_views                     String?   @db.Text
+  clicks                         String?   @db.Text
+  impressions                    String?   @db.Text
+  total_spend                    String?   @db.Text
+  ctr                            String?   @db.Text
+  avg_cpc                        String?   @db.Text
+  rank                           String?   @db.Text
+  reviews                        String?   @db.Text
+  avg_star                       String?   @db.Text
+  conversion_rate                String?   @db.Text
+  total_spend_rate               String?   @db.Text
+  afn_fulfillable_quantity       String?   @db.Text
+  reserved_fc_transfers          String?   @db.Text
+  reserved_fc_processing         String?   @db.Text
+  reserved_customerorders        String?   @db.Text
+  afn_inbound_shipped_quantity   String?   @db.Text
+  afn_unsellable_quantity        String?   @db.Text
+  afn_inbound_receiving_quantity String?   @db.Text
+  afn_inbound_working_quantity   String?   @db.Text
+  acos                           String?   @db.Text
+  acoas                          String?   @db.Text
+  order_quantity                 String?   @db.Text
+  category                       String?   @db.Text
+  adv_rate                       String?   @db.Text
+  sales_amount                   String?   @db.Text
+  ad_cvr                         String?   @db.Text
+  asoas                          String?   @db.Text
+  remark                         String?   @db.Text
+  mid                            String?   @db.Text
+  seller_id                      String?   @db.Text
+  account_name                   String?   @db.Text
+  seller_account_id              String?   @db.Text
+  region                         String?   @db.Text
+  country                        String?   @db.Text
+  id                             String?   @db.Text
+  local_sku                      String?   @db.Text
+  local_name                     String?   @db.Text
+
+  @@ignore
 }
 
-model profit_statistics {
-  profit_id                       String  @id @db.VarChar(255)
-  local_sku_sid                   String? @db.VarChar(255)
-  pid_sid                         String? @db.VarChar(255)
-  asin1                           String? @db.VarChar(255)
-  bid                             String? @db.VarChar(255)
-  cid                             String? @db.VarChar(255)
-  category_text                   String? @db.VarChar(255)
-  code                            String? @db.VarChar(255)
-  cg_price_amazon_order           String? @db.VarChar(255)
-  cg_transport_costs_amazon_order String? @db.VarChar(255)
-  channel_fee                     String? @db.VarChar(255)
-  commission_amount               String? @db.VarChar(255)
-  fba_shipment                    String? @db.VarChar(255)
-  promotion_amount                String? @db.VarChar(255)
-  refund_amount                   String? @db.VarChar(255)
-  refund_num                      String? @db.VarChar(255)
-  sid                             String? @db.VarChar(255)
-  seller_name                     String? @db.VarChar(255)
-  seller                          String? @db.VarChar(255)
-  total_volume                    String? @db.VarChar(255)
-  total_amount                    String? @db.VarChar(255)
-  total_spend                     String? @db.VarChar(255)
-  local_name                      String? @db.VarChar(255)
-  local_sku                       String? @db.VarChar(255)
-  msku                            String? @db.VarChar(255)
-  replenishment_num               String? @db.VarChar(255)
-  multi_channel_fee               String? @db.VarChar(255)
-  order_quantity                  String? @db.VarChar(255)
-  sales_amount                    String? @db.VarChar(255)
-  cg_price_replenishment          String? @db.VarChar(255)
-  other_order_fee                 String? @db.VarChar(255)
-  total_cg_transport_costs        String? @db.VarChar(255)
-  gross_profit                    String? @db.VarChar(255)
-  date_str                        String? @db.VarChar(255)
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model product_Inventory {
+  date                           String? @db.Text
+  sku                            String? @db.Text
+  fnsku                          String? @db.Text
+  asin                           String? @db.Text
+  product_name                   String? @db.Text
+  condition                      String? @db.Text
+  mfn_listing_exists             String? @db.Text
+  mfn_fulfillable_quantity       String? @db.Text
+  afn_listing_exists             String? @db.Text
+  afn_warehouse_quantity         String? @db.Text
+  afn_fulfillable_quantity       String? @db.Text
+  afn_unsellable_quantity        String? @db.Text
+  afn_reserved_quantity          String? @db.Text
+  afn_total_quantity             String? @db.Text
+  per_unit_volume                String? @db.Text
+  afn_inbound_working_quantity   String? @db.Text
+  afn_inbound_shipped_quantity   String? @db.Text
+  afn_inbound_receiving_quantity String? @db.Text
+  your_price                     String? @db.Text
+  cg_price                       String? @db.Text
+  landed_price                   String? @db.Text
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model product_info {
+  pid                String? @db.Text
+  local_sku          String? @db.Text
+  sku                String? @db.Text
+  asin               String? @db.Text
+  sid                String? @db.Text
+  product_deparment  String? @db.Text
+  product_category_1 String? @db.Text
+  product_category_2 String? @db.Text
+  product_category_3 String? @db.Text
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model product_list {
+  date               String? @db.Text
+  id                 Int?
+  cid                Int?
+  category_name      String? @db.Text
+  bid                Int?
+  brand_name         String? @db.Text
+  sku                String? @db.Text
+  product_name       String? @db.Text
+  pic_url            String? @db.Text
+  cg_delivery        Int?
+  cg_transport_costs Float?
+  cg_price           Float?
+  status             Int?
+  status_text        String? @db.Text
+  is_combo           Int?
+  create_time        Int?
+  product_developer  String? @db.Text
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model product_performance {
+  date                           String? @db.Text
+  sid                            String? @db.Text
+  id                             String? @db.Text
+  gmt_modified                   String? @db.Text
+  price                          String? @db.Text
+  small_image_url                String? @db.Text
+  item_name                      String? @db.Text
+  cid                            String? @db.Text
+  bid                            String? @db.Text
+  avaiable_days                  String? @db.Text
+  order_items                    String? @db.Text
+  volume                         String? @db.Text
+  amount                         String? @db.Text
+  sessions                       String? @db.Text
+  buy_box_percentage             String? @db.Text
+  page_views                     String? @db.Text
+  clicks                         String? @db.Text
+  impressions                    String? @db.Text
+  total_spend                    String? @db.Text
+  ctr                            String? @db.Text
+  avg_cpc                        String? @db.Text
+  rank                           String? @db.Text
+  reviews                        String? @db.Text
+  avg_star                       String? @db.Text
+  conversion_rate                String? @db.Text
+  total_spend_rate               String? @db.Text
+  afn_fulfillable_quantity       String? @db.Text
+  reserved_fc_transfers          String? @db.Text
+  reserved_fc_processing         String? @db.Text
+  reserved_customerorders        String? @db.Text
+  afn_inbound_shipped_quantity   String? @db.Text
+  afn_unsellable_quantity        String? @db.Text
+  afn_inbound_receiving_quantity String? @db.Text
+  afn_inbound_working_quantity   String? @db.Text
+  acos                           String? @db.Text
+  acoas                          String? @db.Text
+  order_quantity                 String? @db.Text
+  category                       String? @db.Text
+  pid                            String? @db.Text
+  adv_rate                       String? @db.Text
+  sales_amount                   String? @db.Text
+  ad_cvr                         String? @db.Text
+  asoas                          String? @db.Text
+  remark                         String? @db.Text
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model product_profits {
+  date               String? @db.Text
+  asin               String? @db.Text
+  shop_name          String? @db.Text
+  country            String? @db.Text
+  local_name         String? @db.Text
+  local_sku          String? @db.Text
+  category           String? @db.Text
+  brand              String? @db.Text
+  amount             Float?
+  volume             Int?
+  volume_dqd         Int?
+  refund_orders      Int?
+  refund             Float?
+  refund_rate        String? @db.Text
+  fba_fees           Float?
+  selling_fees       Float?
+  promotional        Float?
+  cg_cost            Float?
+  cp_cost            Float?
+  cg_transport_costs Float?
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model profit_sp {
+  date                DateTime? @db.Date
+  asin                String?   @db.Text
+  shop_name           String?   @db.Text
+  country             String?   @db.Text
+  local_name          String?   @db.Text
+  local_sku           String?   @db.Text
+  category            String?   @db.Text
+  brand               String?   @db.Text
+  amount              String?   @db.Text
+  volume              String?   @db.Text
+  volume_dqd          String?   @db.Text
+  refund_orders       String?   @db.Text
+  refund              String?   @db.Text
+  refund_rate         String?   @db.Text
+  fba_fees            String?   @db.Text
+  selling_fees        String?   @db.Text
+  promotional         String?   @db.Text
+  cg_cost             String?   @db.Text
+  cp_cost             String?   @db.Text
+  cg_transport_costs  String?   @db.Text
+  ad_cost             String?   @db.Text
+  ad_orders           String?   @db.Text
+  gorss_profit        String?   @db.Text
+  gorss_profit_margin String?   @db.Text
+  pid                 String?   @db.Text
+
+  @@ignore
 }
 
 model rate_lists {
@@ -328,126 +555,20 @@ model rate_lists {
   code      String? @db.VarChar(255)
 }
 
-model sb_campaigns {
-  clicks        String? @db.VarChar(255)
-  cost          String? @db.VarChar(255)
-  currency_code String? @db.VarChar(255)
-  impressions   String? @db.VarChar(255)
-  order_num     String? @db.VarChar(255)
-  sales_amount  String? @db.VarChar(255)
-  id            String  @id @db.VarChar(255)
-  profile_id    String? @db.VarChar(255)
-  portfolio_id  String? @db.VarChar(255)
-  group_name    String? @db.VarChar(255)
-  date_str      String? @db.VarChar(255)
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model shop_list {
+  sid               String? @db.Text
+  mid               String? @db.Text
+  shop_name         String? @db.Text
+  seller_id         String? @db.Text
+  account_name      String? @db.Text
+  seller_account_id String? @db.Text
+  region            String? @db.Text
+  country           String? @db.Text
+
+  @@ignore
 }
 
-model sb_groups {
-  portfolio_id  String  @id @db.VarChar(255)
-  name          String? @db.VarChar(255)
-  profile_id    String? @db.VarChar(255)
-  sid           String? @db.VarChar(255)
-  type          String? @db.VarChar(255)
-  local_sku_sid String? @db.VarChar(255)
-}
-
-model sd_campaigns {
-  id                   String  @id @db.VarChar(255)
-  local_sku            String? @db.VarChar(255)
-  local_sku_sid        String? @db.VarChar(255)
-  total_impressions    String? @db.VarChar(255)
-  total_order_quantity String? @db.VarChar(255)
-  total_sales_amount   String? @db.VarChar(255)
-  currency_icon        String? @db.VarChar(255)
-  date_str             String? @db.VarChar(255)
-  total_clicks         String? @db.VarChar(255)
-  total_cpc            String? @db.VarChar(255)
-  currency_code        String? @db.VarChar(255)
-  mid                  String? @db.VarChar(255)
-  sid                  String? @db.VarChar(255)
-  local_name           String? @db.VarChar(255)
-  total_cost           String? @db.VarChar(255)
-}
-
-model shop_lists {
-  sid             Int     @id
-  country         String? @db.VarChar(255)
-  country_code    String? @db.VarChar(255)
-  currency_code   String? @db.VarChar(255)
-  currency_icon   String? @db.VarChar(255)
-  daily_budget    String? @db.VarChar(255)
-  id              String? @db.VarChar(255)
-  mapped_timezone String? @db.VarChar(255)
-  mid             String? @db.VarChar(255)
-  name            String? @db.VarChar(255)
-  profile_id      String? @db.VarChar(255)
-  region          String? @db.VarChar(255)
-  timezone        String? @db.VarChar(255)
-}
-
-model sku_lists {
-  local_sku_sid String  @id @db.VarChar(255)
-  pid_sid       String? @db.VarChar(255)
-  pid           String? @db.VarChar(255)
-  local_sku     String? @db.VarChar(255)
-  local_name    String? @db.VarChar(255)
-  sku           String? @db.VarChar(255)
-  asin          String? @db.VarChar(255)
-  sid           String? @db.VarChar(255)
-  mid           String? @db.VarChar(255)
-  portfolio_id  String? @db.VarChar(255)
-  country       String? @db.VarChar(255)
-  cid           String? @db.VarChar(255)
-  category_text String? @db.VarChar(255)
-}
-
-model sku_sb_tables {
-  portfolio_id  String  @db.VarChar(255)
-  local_sku_sid String  @db.VarChar(255)
-  name          String? @db.VarChar(255)
-  local_sku_mid String? @db.VarChar(255)
-
-  @@id([portfolio_id, local_sku_sid])
-}
-
-model sp_campaigns {
-  id                   String  @id @db.VarChar(255)
-  local_sku            String? @db.VarChar(255)
-  local_sku_sid        String? @db.VarChar(255)
-  total_impressions    String? @db.VarChar(255)
-  total_order_quantity String? @db.VarChar(255)
-  total_sales_amount   String? @db.VarChar(255)
-  currency_icon        String? @db.VarChar(255)
-  date_str             String? @db.VarChar(255)
-  total_clicks         String? @db.VarChar(255)
-  total_cpc            String? @db.VarChar(255)
-  currency_code        String? @db.VarChar(255)
-  mid                  String? @db.VarChar(255)
-  sid                  String? @db.VarChar(255)
-  local_name           String? @db.VarChar(255)
-  total_cost           String? @db.VarChar(255)
-}
-
-model sp_groups {
-  portfolio_id  String  @id @db.VarChar(255)
-  name          String? @db.VarChar(255)
-  profile_id    String? @db.VarChar(255)
-  sid           String? @db.VarChar(255)
-  type          String? @db.VarChar(255)
-  local_sku_sid String? @db.VarChar(255)
-  local_sku_mid String? @db.VarChar(255)
-}
-
-model users {
-  id          Int      @id @default(autoincrement())
-  firstName   String?  @db.VarChar(255)
-  lastName    String?  @db.VarChar(255)
-  username    String?  @db.VarChar(255)
-  password    String?  @db.VarChar(255)
-  email       String?  @db.VarChar(255)
-  phoneNumber String?  @db.VarChar(255)
-  gender      String?  @db.VarChar(255)
-  status      Boolean?
-  createdAt   DateTime @db.DateTime(0)
-  updatedAt   DateTime @db.DateTime(0)
+model test1 {
+  idtest1 Int @id
 }

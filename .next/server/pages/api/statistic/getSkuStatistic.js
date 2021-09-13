@@ -1,252 +1,92 @@
 "use strict";
+/*
+ * ATTENTION: An "eval-source-map" devtool has been used.
+ * This devtool is neither made for production nor for readable output files.
+ * It uses "eval()" calls to create a separate source file with attached SourceMaps in the browser devtools.
+ * If you are trying to read the output file, select a different devtool (https://webpack.js.org/configuration/devtool/)
+ * or disable the default devtool with "devtool: false".
+ * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
+ */
 (() => {
 var exports = {};
-exports.id = 796;
-exports.ids = [796];
+exports.id = "pages/api/statistic/getSkuStatistic";
+exports.ids = ["pages/api/statistic/getSkuStatistic"];
 exports.modules = {
 
-/***/ 143:
+/***/ "./lib/prisma.js":
+/*!***********************!*\
+  !*** ./lib/prisma.js ***!
+  \***********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _utils_server__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(844);
-/* harmony import */ var _utils_getProfitLists__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(399);
-/* harmony import */ var dayjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(349);
-/* harmony import */ var dayjs__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(dayjs__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _lib_prisma__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(132);
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-
-
-
-
-
-const getDayArray = (startDate, endDate) => {
-  const startDateMs = dayjs__WEBPACK_IMPORTED_MODULE_2___default()(startDate).valueOf();
-  const endDateMs = dayjs__WEBPACK_IMPORTED_MODULE_2___default()(endDate).valueOf();
-  const days = (endDateMs - startDateMs) / 60 / 60 / 1000 / 24 + 1;
-  const daysArray = []; // const LocalSkuMidProfitList = ctx.model.Fulin.LocalSkuMidProfitList;
-
-  const x_axis = [];
-
-  for (let i = 0; i < days; i++) {
-    if (i % 7 === 0) {
-      const pStartDateMs = startDateMs + i * 60 * 60 * 24 * 1000;
-      const pEndDateMs = pStartDateMs + 6 * 24 * 60 * 60 * 1000 > endDateMs ? endDateMs : pStartDateMs + 6 * 24 * 60 * 60 * 1000;
-      x_axis.push(dayjs__WEBPACK_IMPORTED_MODULE_2___default()(startDateMs + i * 60 * 60 * 24 * 1000).format('YYYY-MM-DD'));
-      daysArray.push({
-        date_str: dayjs__WEBPACK_IMPORTED_MODULE_2___default()(startDateMs + i * 60 * 60 * 24 * 1000).format('YYYY-MM-DD'),
-        // startDateMs: pStartDateMs,
-        // endDateMs: pEndDateMs,
-        start_date_str: dayjs__WEBPACK_IMPORTED_MODULE_2___default()(startDateMs + i * 60 * 60 * 24 * 1000).format('YYYY-MM-DD'),
-        end_date_str: dayjs__WEBPACK_IMPORTED_MODULE_2___default()(pEndDateMs).format('YYYY-MM-DD')
-      });
-    }
-  }
-
-  return {
-    daysArray,
-    x_axis
-  };
-};
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_utils_server__WEBPACK_IMPORTED_MODULE_0__/* .default */ .Z)().post(async (req, res) => {
-  console.log('sku');
-  const {
-    cid,
-    mid,
-    startDate,
-    endDate,
-    local_sku
-  } = req.body; // const profitLists  = await getProfitLists(req.body)
-
-  const {
-    daysArray,
-    x_axis
-  } = getDayArray(startDate, endDate);
-  let skuList = await _lib_prisma__WEBPACK_IMPORTED_MODULE_3__/* .default.local_sku_mid_lists.findMany */ .Z.local_sku_mid_lists.findMany({
-    where: _objectSpread(_objectSpread(_objectSpread({}, cid ? {
-      cid
-    } : {}), mid ? {
-      mid
-    } : {}), local_sku ? {
-      local_sku
-    } : {})
-  });
-  let rateList = await _lib_prisma__WEBPACK_IMPORTED_MODULE_3__/* .default.rate_lists.findMany */ .Z.rate_lists.findMany();
-  const rateEnum = {};
-  rateList.map(item => {
-    rateEnum[item.code_date] = item;
-  });
-  const fetchData = await (0,_utils_getProfitLists__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z)(_objectSpread({
-    cid,
-    startDate,
-    endDate
-  }, mid ? {
-    mid: String(mid)
-  } : {})); // 总数据
-
-  const pSkuList = skuList.map((sku, iii) => {
-    const skuData = fetchData.filter(element => {
-      return sku.local_sku_mid === element.local_sku_mid;
-    }); // sku.data = [];
-
-    sku.title = sku.local_sku;
-    sku.cost = 0;
-    sku.ad_orders = 0;
-    sku.sales_amount = 0;
-    sku.total_volume = 0;
-    sku.ad_sales_amount = 0;
-    sku.spCost = 0;
-    sku.spOrderNum = 0;
-    sku.spImpressions = 0;
-    sku.spClicks = 0;
-    sku.spSalesAmount = 0;
-    sku.sbSkuCost = 0;
-    sku.sbSkuOrderNum = 0;
-    sku.sbSkuImpressions = 0;
-    sku.sbSkuClicks = 0;
-    sku.sbSkuSalesAmount = 0;
-    sku.sbvCost = 0;
-    sku.sbvOrderNum = 0;
-    sku.sbvImpressions = 0;
-    sku.sbvClicks = 0;
-    sku.sbvSalesAmount = 0;
-    sku.dCost = 0;
-    sku.sdOrderNum = 0;
-    sku.sdImpressions = 0;
-    sku.sdClicks = 0;
-    sku.sdSalesAmount = 0;
-    skuData.map(item => {
-      sku.spCost += Number(item.sp_cost || 0);
-      sku.spOrderNum += Number(item.sp_orders || 0);
-      sku.spImpressions += Number(item.sp_impressions || 0);
-      sku.spClicks += Number(item.sp_clicks || 0);
-      sku.spSalesAmount += Number(item.sp_sales_amount || 0);
-      sku.sbSkuCost += Number(item.sb_cost || 0);
-      sku.sbSkuOrderNum += Number(item.sb_orders || 0);
-      sku.sbSkuImpressions += Number(item.sb_impressions || 0);
-      sku.sbSkuClicks += Number(item.sb_clicks || 0);
-      sku.sbSkuSalesAmount += Number(item.sb_sales_amount || 0);
-      sku.sbvCost += Number(item.sbv_cost || 0);
-      sku.sbvOrderNum += Number(item.sb_orders || 0);
-      sku.sbvImpressions += Number(item.sbv_impressions || 0);
-      sku.sbvClicks += Number(item.sbv_clicks || 0);
-      sku.sbvSalesAmount += Number(item.sbv_sales_amount || 0);
-      sku.sdCost += Number(item.sd_cost || 0);
-      sku.sdOrderNum += Number(item.sd_orders || 0);
-      sku.sdImpressions += Number(item.sd_impressions || 0);
-      sku.sdClicks += Number(item.sd_clicks || 0);
-      sku.sdSalesAmount += Number(item.sd_sales_amount || 0);
-    });
-    sku.weekAds = [];
-    const name = sku.local_sku;
-    sku.weekAds = [];
-    daysArray.map((element, jjjj) => {
-      const startMs = dayjs__WEBPACK_IMPORTED_MODULE_2___default()(element.start_date_str).valueOf();
-      const endMs = dayjs__WEBPACK_IMPORTED_MODULE_2___default()(element.end_date_str).valueOf();
-      const filterData = skuData.filter(profitData => {
-        const {
-          date_str
-        } = profitData;
-        const dateMs = dayjs__WEBPACK_IMPORTED_MODULE_2___default()(date_str).valueOf();
-        return dateMs >= startMs && dateMs <= endMs;
-      });
-      const obj = {
-        date_str: element.date_str,
-        end_date_str: element.end_date_str,
-        start_date_str: element.start_date_str,
-        sales_amount: 0,
-        gross_profit: 0,
-        cost: 0,
-        ad_orders: 0,
-        ad_clicks: 0,
-        weekData: filterData,
-        ad_impressions: 0
-      };
-      filterData.map(profit => {
-        const code_date = profit.code + '_' + dayjs__WEBPACK_IMPORTED_MODULE_2___default()(profit.date_str).format('YYYY-MM');
-        const us_rate = Number(rateEnum['USD_' + dayjs__WEBPACK_IMPORTED_MODULE_2___default()(profit.date_str).format('YYYY-MM')].rate || 1);
-        const rate = Number(rateEnum[code_date].rate || 1);
-        const ratio = rate / us_rate || 1;
-        const ad_cost = Number(profit.sp_cost || 0) + Number(profit.sb_cost || 0) + Number(profit.sbv_cost || 0) + Number(profit.sd_cost || 0);
-        const ad_orders = Number(profit.sp_orders || 0) + Number(profit.sb_orders || 0) + Number(profit.sbv_orders || 0) + Number(profit.sd_orders || 0);
-        const ad_clicks = Number(profit.sp_clicks || 0) + Number(profit.sb_clicks || 0) + Number(profit.sbv_clicks || 0) + Number(profit.sd_clicks || 0);
-        const ad_impressions = Number(profit.sp_clicks || 0) + Number(profit.sb_impressions || 0) + Number(profit.sbv_impressions || 0) + Number(profit.sd_impressions || 0);
-        const gross_profit = Number(profit.total_amount || 0) + Number(profit.refund_amount || 0) + Number(profit.channel_fee || 0) + Number(profit.commission_amount || 0) + Number(profit.promotion_amount || 0) + Number(profit.total_cg_price || 0) + Number(profit.total_cg_transport_costs || 0) + Number(profit.other_order_fee || 0) - ad_cost;
-        obj.cost += ad_cost * ratio;
-        obj.ad_orders += Number(ad_orders);
-        obj.ad_clicks += Number(ad_clicks);
-        obj.sales_amount += Number(profit.total_amount) * ratio;
-        obj.ad_impressions += Number(ad_impressions);
-        obj.gross_profit += Number(gross_profit) * ratio;
-        obj.total_acos = obj.cost / obj.sales_amount * 100;
-        obj.profit_rate = obj.gross_profit / obj.sales_amount * 100;
-      });
-      sku.weekAds.push(obj);
-    });
-    skuData.map(element => {
-      const code_date = element.code + '_' + dayjs__WEBPACK_IMPORTED_MODULE_2___default()(element.date_str).format('YYYY-MM');
-      const us_rate = Number(rateEnum['USD_' + dayjs__WEBPACK_IMPORTED_MODULE_2___default()(element.date_str).format('YYYY-MM')].rate || 1);
-      const rate = Number(rateEnum[code_date].rate || 1);
-      const ratio = rate / us_rate || 1;
-      const ad_cost = Number(element.sp_cost || 0) + Number(element.sb_cost || 0) + Number(element.sbv_cost || 0) + Number(element.sd_cost || 0);
-      const gross_profit = Number(element.total_amount || 0) + Number(element.refund_amount || 0) + Number(element.channel_fee || 0) + Number(element.commission_amount || 0) + Number(element.promotion_amount || 0) + Number(element.total_cg_price || 0) + Number(element.total_cg_transport_costs || 0) + Number(element.other_order_fee || 0) - ad_cost;
-      const ad_orders = Number(element.sp_orders || 0) + Number(element.sb_orders || 0) + Number(element.sbv_orders || 0) + Number(element.sd_orders || 0);
-      const ad_sales_amount = Number(element.sp_sales_amount || 0) + Number(element.sales_amount || 0) + Number(element.sbv_sales_amount || 0) + Number(element.sd_sales_amount || 0);
-      sku.total_volume += Number(element.total_volume);
-      sku.gross_profit += Number(gross_profit) * ratio;
-      sku.cost += ad_cost * ratio;
-      sku.sales_amount += Number(element.total_amount) * ratio;
-      sku.ad_sales_amount += Number(ad_sales_amount) * ratio;
-      sku.cid = element.cid;
-      sku.mid = element.mid;
-      sku.ad_orders += ad_orders;
-      sku.ratio = ratio; // sku.data.push(element);
-    });
-    return sku;
-  });
-  pSkuList.sort((a, b) => b.sales_amount - a.sales_amount);
-  res.send({
-    response: {
-      categories: pSkuList,
-      x_axis
-    }
-  });
-  res.end();
-}));
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _prisma_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @prisma/client */ \"@prisma/client\");\n/* harmony import */ var _prisma_client__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_prisma_client__WEBPACK_IMPORTED_MODULE_0__);\n\nlet prisma;\n\nif (false) {} else {\n  if (!global.prisma) {\n    global.prisma = new _prisma_client__WEBPACK_IMPORTED_MODULE_0__.PrismaClient();\n  }\n\n  prisma = global.prisma;\n}\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (prisma);//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9saWIvcHJpc21hLmpzLmpzIiwibWFwcGluZ3MiOiI7Ozs7OztBQUFBO0FBRUEsSUFBSUMsTUFBSjs7QUFFQSxJQUFJLE9BQXVDLEVBQTNDLE1BRU87QUFDTCxNQUFJLENBQUNDLE1BQU0sQ0FBQ0QsTUFBWixFQUFvQjtBQUNsQkMsSUFBQUEsTUFBTSxDQUFDRCxNQUFQLEdBQWdCLElBQUlELHdEQUFKLEVBQWhCO0FBQ0Q7O0FBQ0RDLEVBQUFBLE1BQU0sR0FBR0MsTUFBTSxDQUFDRCxNQUFoQjtBQUNEOztBQUNELGlFQUFlQSxNQUFmIiwic291cmNlcyI6WyJ3ZWJwYWNrOi8vbXktbmV4dC8uL2xpYi9wcmlzbWEuanM/YzU2NSJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBQcmlzbWFDbGllbnQgfSBmcm9tICdAcHJpc21hL2NsaWVudCdcblxubGV0IHByaXNtYVxuXG5pZiAocHJvY2Vzcy5lbnYuTk9ERV9FTlYgPT09ICdwcm9kdWN0aW9uJykge1xuICBwcmlzbWEgPSBuZXcgUHJpc21hQ2xpZW50KClcbn0gZWxzZSB7XG4gIGlmICghZ2xvYmFsLnByaXNtYSkge1xuICAgIGdsb2JhbC5wcmlzbWEgPSBuZXcgUHJpc21hQ2xpZW50KClcbiAgfVxuICBwcmlzbWEgPSBnbG9iYWwucHJpc21hXG59XG5leHBvcnQgZGVmYXVsdCBwcmlzbWEiXSwibmFtZXMiOlsiUHJpc21hQ2xpZW50IiwicHJpc21hIiwiZ2xvYmFsIl0sInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./lib/prisma.js\n");
 
 /***/ }),
 
-/***/ 796:
+/***/ "./pages/api/statistic/getSkuStatistic.ts":
+/*!************************************************!*\
+  !*** ./pages/api/statistic/getSkuStatistic.ts ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _utils_server__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../utils.server */ \"./utils.server.ts\");\n/* harmony import */ var _utils_getProfitLists__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../utils/getProfitLists */ \"./utils/getProfitLists.ts\");\n/* harmony import */ var dayjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! dayjs */ \"dayjs\");\n/* harmony import */ var dayjs__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(dayjs__WEBPACK_IMPORTED_MODULE_2__);\n/* harmony import */ var _lib_prisma__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../lib/prisma */ \"./lib/prisma.js\");\nfunction ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }\n\nfunction _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }\n\nfunction _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }\n\n\n\n\n\n\nconst getDayArray = (startDate, endDate) => {\n  const startDateMs = dayjs__WEBPACK_IMPORTED_MODULE_2___default()(startDate).valueOf();\n  const endDateMs = dayjs__WEBPACK_IMPORTED_MODULE_2___default()(endDate).valueOf();\n  const days = (endDateMs - startDateMs) / 60 / 60 / 1000 / 24 + 1;\n  const daysArray = []; // const LocalSkuMidProfitList = ctx.model.Fulin.LocalSkuMidProfitList;\n\n  const x_axis = [];\n\n  for (let i = 0; i < days; i++) {\n    if (i % 7 === 0) {\n      const pStartDateMs = startDateMs + i * 60 * 60 * 24 * 1000;\n      const pEndDateMs = pStartDateMs + 6 * 24 * 60 * 60 * 1000 > endDateMs ? endDateMs : pStartDateMs + 6 * 24 * 60 * 60 * 1000;\n      x_axis.push(dayjs__WEBPACK_IMPORTED_MODULE_2___default()(startDateMs + i * 60 * 60 * 24 * 1000).format('YYYY-MM-DD'));\n      daysArray.push({\n        date_str: dayjs__WEBPACK_IMPORTED_MODULE_2___default()(startDateMs + i * 60 * 60 * 24 * 1000).format('YYYY-MM-DD'),\n        // startDateMs: pStartDateMs,\n        // endDateMs: pEndDateMs,\n        start_date_str: dayjs__WEBPACK_IMPORTED_MODULE_2___default()(startDateMs + i * 60 * 60 * 24 * 1000).format('YYYY-MM-DD'),\n        end_date_str: dayjs__WEBPACK_IMPORTED_MODULE_2___default()(pEndDateMs).format('YYYY-MM-DD')\n      });\n    }\n  }\n\n  return {\n    daysArray,\n    x_axis\n  };\n};\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_utils_server__WEBPACK_IMPORTED_MODULE_0__.default)().post(async (req, res) => {\n  console.log('sku');\n  const {\n    cid,\n    mid,\n    startDate,\n    endDate,\n    local_sku\n  } = req.body; // const profitLists  = await getProfitLists(req.body)\n\n  const {\n    daysArray,\n    x_axis\n  } = getDayArray(startDate, endDate);\n  let skuList = await _lib_prisma__WEBPACK_IMPORTED_MODULE_3__.default.local_sku_mid_lists.findMany({\n    where: _objectSpread(_objectSpread(_objectSpread({}, cid ? {\n      cid\n    } : {}), mid ? {\n      mid\n    } : {}), local_sku ? {\n      local_sku\n    } : {})\n  });\n  let rateList = await _lib_prisma__WEBPACK_IMPORTED_MODULE_3__.default.rate_lists.findMany();\n  const rateEnum = {};\n  rateList.map(item => {\n    rateEnum[item.code_date] = item;\n  });\n  const fetchData = await (0,_utils_getProfitLists__WEBPACK_IMPORTED_MODULE_1__.default)(_objectSpread({\n    cid,\n    startDate,\n    endDate\n  }, mid ? {\n    mid: String(mid)\n  } : {})); // 总数据\n\n  const pSkuList = skuList.map((sku, iii) => {\n    const skuData = fetchData.filter(element => {\n      return sku.local_sku_mid === element.local_sku_mid;\n    }); // sku.data = [];\n\n    sku.title = sku.local_sku;\n    sku.cost = 0;\n    sku.ad_orders = 0;\n    sku.sales_amount = 0;\n    sku.total_volume = 0;\n    sku.ad_sales_amount = 0;\n    sku.spCost = 0;\n    sku.spOrderNum = 0;\n    sku.spImpressions = 0;\n    sku.spClicks = 0;\n    sku.spSalesAmount = 0;\n    sku.sbSkuCost = 0;\n    sku.sbSkuOrderNum = 0;\n    sku.sbSkuImpressions = 0;\n    sku.sbSkuClicks = 0;\n    sku.sbSkuSalesAmount = 0;\n    sku.sbvCost = 0;\n    sku.sbvOrderNum = 0;\n    sku.sbvImpressions = 0;\n    sku.sbvClicks = 0;\n    sku.sbvSalesAmount = 0;\n    sku.dCost = 0;\n    sku.sdOrderNum = 0;\n    sku.sdImpressions = 0;\n    sku.sdClicks = 0;\n    sku.sdSalesAmount = 0;\n    skuData.map(item => {\n      sku.spCost += Number(item.sp_cost || 0);\n      sku.spOrderNum += Number(item.sp_orders || 0);\n      sku.spImpressions += Number(item.sp_impressions || 0);\n      sku.spClicks += Number(item.sp_clicks || 0);\n      sku.spSalesAmount += Number(item.sp_sales_amount || 0);\n      sku.sbSkuCost += Number(item.sb_cost || 0);\n      sku.sbSkuOrderNum += Number(item.sb_orders || 0);\n      sku.sbSkuImpressions += Number(item.sb_impressions || 0);\n      sku.sbSkuClicks += Number(item.sb_clicks || 0);\n      sku.sbSkuSalesAmount += Number(item.sb_sales_amount || 0);\n      sku.sbvCost += Number(item.sbv_cost || 0);\n      sku.sbvOrderNum += Number(item.sb_orders || 0);\n      sku.sbvImpressions += Number(item.sbv_impressions || 0);\n      sku.sbvClicks += Number(item.sbv_clicks || 0);\n      sku.sbvSalesAmount += Number(item.sbv_sales_amount || 0);\n      sku.sdCost += Number(item.sd_cost || 0);\n      sku.sdOrderNum += Number(item.sd_orders || 0);\n      sku.sdImpressions += Number(item.sd_impressions || 0);\n      sku.sdClicks += Number(item.sd_clicks || 0);\n      sku.sdSalesAmount += Number(item.sd_sales_amount || 0);\n    });\n    sku.weekAds = [];\n    const name = sku.local_sku;\n    sku.weekAds = [];\n    daysArray.map((element, jjjj) => {\n      const startMs = dayjs__WEBPACK_IMPORTED_MODULE_2___default()(element.start_date_str).valueOf();\n      const endMs = dayjs__WEBPACK_IMPORTED_MODULE_2___default()(element.end_date_str).valueOf();\n      const filterData = skuData.filter(profitData => {\n        const {\n          date_str\n        } = profitData;\n        const dateMs = dayjs__WEBPACK_IMPORTED_MODULE_2___default()(date_str).valueOf();\n        return dateMs >= startMs && dateMs <= endMs;\n      });\n      const obj = {\n        date_str: element.date_str,\n        end_date_str: element.end_date_str,\n        start_date_str: element.start_date_str,\n        sales_amount: 0,\n        gross_profit: 0,\n        cost: 0,\n        ad_orders: 0,\n        ad_clicks: 0,\n        weekData: filterData,\n        ad_impressions: 0\n      };\n      filterData.map(profit => {\n        const code_date = profit.code + '_' + dayjs__WEBPACK_IMPORTED_MODULE_2___default()(profit.date_str).format('YYYY-MM');\n        const us_rate = Number(rateEnum['USD_' + dayjs__WEBPACK_IMPORTED_MODULE_2___default()(profit.date_str).format('YYYY-MM')].rate || 1);\n        const rate = Number(rateEnum[code_date].rate || 1);\n        const ratio = rate / us_rate || 1;\n        const ad_cost = Number(profit.sp_cost || 0) + Number(profit.sb_cost || 0) + Number(profit.sbv_cost || 0) + Number(profit.sd_cost || 0);\n        const ad_orders = Number(profit.sp_orders || 0) + Number(profit.sb_orders || 0) + Number(profit.sbv_orders || 0) + Number(profit.sd_orders || 0);\n        const ad_clicks = Number(profit.sp_clicks || 0) + Number(profit.sb_clicks || 0) + Number(profit.sbv_clicks || 0) + Number(profit.sd_clicks || 0);\n        const ad_impressions = Number(profit.sp_clicks || 0) + Number(profit.sb_impressions || 0) + Number(profit.sbv_impressions || 0) + Number(profit.sd_impressions || 0);\n        const gross_profit = Number(profit.total_amount || 0) + Number(profit.refund_amount || 0) + Number(profit.channel_fee || 0) + Number(profit.commission_amount || 0) + Number(profit.promotion_amount || 0) + Number(profit.total_cg_price || 0) + Number(profit.total_cg_transport_costs || 0) + Number(profit.other_order_fee || 0) - ad_cost;\n        obj.cost += ad_cost * ratio;\n        obj.ad_orders += Number(ad_orders);\n        obj.ad_clicks += Number(ad_clicks);\n        obj.sales_amount += Number(profit.total_amount) * ratio;\n        obj.ad_impressions += Number(ad_impressions);\n        obj.gross_profit += Number(gross_profit) * ratio;\n        obj.total_acos = obj.cost / obj.sales_amount * 100;\n        obj.profit_rate = obj.gross_profit / obj.sales_amount * 100;\n      });\n      sku.weekAds.push(obj);\n    });\n    skuData.map(element => {\n      const code_date = element.code + '_' + dayjs__WEBPACK_IMPORTED_MODULE_2___default()(element.date_str).format('YYYY-MM');\n      const us_rate = Number(rateEnum['USD_' + dayjs__WEBPACK_IMPORTED_MODULE_2___default()(element.date_str).format('YYYY-MM')].rate || 1);\n      const rate = Number(rateEnum[code_date].rate || 1);\n      const ratio = rate / us_rate || 1;\n      const ad_cost = Number(element.sp_cost || 0) + Number(element.sb_cost || 0) + Number(element.sbv_cost || 0) + Number(element.sd_cost || 0);\n      const gross_profit = Number(element.total_amount || 0) + Number(element.refund_amount || 0) + Number(element.channel_fee || 0) + Number(element.commission_amount || 0) + Number(element.promotion_amount || 0) + Number(element.total_cg_price || 0) + Number(element.total_cg_transport_costs || 0) + Number(element.other_order_fee || 0) - ad_cost;\n      const ad_orders = Number(element.sp_orders || 0) + Number(element.sb_orders || 0) + Number(element.sbv_orders || 0) + Number(element.sd_orders || 0);\n      const ad_sales_amount = Number(element.sp_sales_amount || 0) + Number(element.sales_amount || 0) + Number(element.sbv_sales_amount || 0) + Number(element.sd_sales_amount || 0);\n      sku.total_volume += Number(element.total_volume);\n      sku.gross_profit += Number(gross_profit) * ratio;\n      sku.cost += ad_cost * ratio;\n      sku.sales_amount += Number(element.total_amount) * ratio;\n      sku.ad_sales_amount += Number(ad_sales_amount) * ratio;\n      sku.cid = element.cid;\n      sku.mid = element.mid;\n      sku.ad_orders += ad_orders;\n      sku.ratio = ratio; // sku.data.push(element);\n    });\n    return sku;\n  });\n  pSkuList.sort((a, b) => b.sales_amount - a.sales_amount);\n  res.send({\n    response: {\n      categories: pSkuList,\n      x_axis\n    }\n  });\n  res.end();\n}));//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9wYWdlcy9hcGkvc3RhdGlzdGljL2dldFNrdVN0YXRpc3RpYy50cy5qcyIsIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7QUFBQTtBQUVBO0FBQ0E7QUFDQTs7QUFHQSxNQUFNSSxXQUFXLEdBQUcsQ0FBQ0MsU0FBRCxFQUFZQyxPQUFaLEtBQXdCO0FBQzFDLFFBQU1DLFdBQVcsR0FBR0wsNENBQUssQ0FBQ0csU0FBRCxDQUFMLENBQWlCRyxPQUFqQixFQUFwQjtBQUNBLFFBQU1DLFNBQVMsR0FBR1AsNENBQUssQ0FBQ0ksT0FBRCxDQUFMLENBQWVFLE9BQWYsRUFBbEI7QUFDQSxRQUFNRSxJQUFJLEdBQUcsQ0FBQ0QsU0FBUyxHQUFHRixXQUFiLElBQTRCLEVBQTVCLEdBQWlDLEVBQWpDLEdBQXNDLElBQXRDLEdBQTZDLEVBQTdDLEdBQWtELENBQS9EO0FBQ0EsUUFBTUksU0FBUyxHQUFHLEVBQWxCLENBSjBDLENBSzFDOztBQUNBLFFBQU1DLE1BQU0sR0FBRyxFQUFmOztBQUNBLE9BQUssSUFBSUMsQ0FBQyxHQUFHLENBQWIsRUFBZ0JBLENBQUMsR0FBR0gsSUFBcEIsRUFBMEJHLENBQUMsRUFBM0IsRUFBK0I7QUFDN0IsUUFBSUEsQ0FBQyxHQUFHLENBQUosS0FBVSxDQUFkLEVBQWlCO0FBQ2YsWUFBTUMsWUFBWSxHQUFHUCxXQUFXLEdBQUdNLENBQUMsR0FBRyxFQUFKLEdBQVMsRUFBVCxHQUFjLEVBQWQsR0FBbUIsSUFBdEQ7QUFDQSxZQUFNRSxVQUFVLEdBQUlELFlBQVksR0FBRyxJQUFJLEVBQUosR0FBUyxFQUFULEdBQWMsRUFBZCxHQUFtQixJQUFuQyxHQUEyQ0wsU0FBM0MsR0FBdURBLFNBQXZELEdBQW9FSyxZQUFZLEdBQUcsSUFBSSxFQUFKLEdBQVMsRUFBVCxHQUFjLEVBQWQsR0FBbUIsSUFBekg7QUFDQUYsTUFBQUEsTUFBTSxDQUFDSSxJQUFQLENBQVlkLDRDQUFLLENBQUNLLFdBQVcsR0FBR00sQ0FBQyxHQUFHLEVBQUosR0FBUyxFQUFU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bEI7QUFDQWlCLE1BQUFBLEdBQUcsQ0FBQ2hCLEdBQUosR0FBVW9CLE9BQU8sQ0FBQ3BCLEdBQWxCO0FBQ0FnQixNQUFBQSxHQUFHLENBQUNRLFNBQUosSUFBaUJBLFNBQWpCO0FBQ0FSLE1BQUFBLEdBQUcsQ0FBQ3NFLEtBQUosR0FBWUEsS0FBWixDQWxCcUIsQ0FvQnJCO0FBQ0QsS0FyQkQ7QUF3QkEsV0FBT3RFLEdBQVA7QUFDRCxHQTNJZ0IsQ0FBakI7QUE0SUFELEVBQUFBLFFBQVEsQ0FBQ29GLElBQVQsQ0FBYyxDQUFDQyxDQUFELEVBQUlDLENBQUosS0FBVUEsQ0FBQyxDQUFDNUUsWUFBRixHQUFpQjJFLENBQUMsQ0FBQzNFLFlBQTNDO0FBR0Y3QixFQUFBQSxHQUFHLENBQUMwRyxJQUFKLENBQVM7QUFDUEMsSUFBQUEsUUFBUSxFQUFDO0FBQ1BDLE1BQUFBLFVBQVUsRUFBRXpGLFFBREw7QUFFUDlCLE1BQUFBO0FBRk87QUFERixHQUFUO0FBTUFXLEVBQUFBLEdBQUcsQ0FBQzZHLEdBQUo7QUFFRCxDQXBMYyxDQUFmIiwic291cmNlcyI6WyJ3ZWJwYWNrOi8vbXktbmV4dC8uL3BhZ2VzL2FwaS9zdGF0aXN0aWMvZ2V0U2t1U3RhdGlzdGljLnRzPzJkMDAiXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IGFwaUhhbmRsZXIgZnJvbSBcIi4uLy4uLy4uL3V0aWxzLnNlcnZlclwiO1xuaW1wb3J0IHsgTmV4dEFwaVJlcXVlc3QsIE5leHRBcGlSZXNwb25zZSB9IGZyb20gXCJuZXh0XCI7XG5pbXBvcnQgZ2V0UHJvZml0TGlzdHMgZnJvbSBcIi4uLy4uLy4uL3V0aWxzL2dldFByb2ZpdExpc3RzXCI7XG5pbXBvcnQgZGF5anMgZnJvbSAnZGF5anMnO1xuaW1wb3J0IHByaXNtYSBmcm9tICcuLi8uLi8uLi9saWIvcHJpc21hJ1xuXG5cbmNvbnN0IGdldERheUFycmF5ID0gKHN0YXJ0RGF0ZSwgZW5kRGF0ZSkgPT4ge1xuICBjb25zdCBzdGFydERhdGVNcyA9IGRheWpzKHN0YXJ0RGF0ZSkudmFsdWVPZigpO1xuICBjb25zdCBlbmREYXRlTXMgPSBkYXlqcyhlbmREYXRlKS52YWx1ZU9mKCk7XG4gIGNvbnN0IGRheXMgPSAoZW5kRGF0ZU1zIC0gc3RhcnREYXRlTXMpIC8gNjAgLyA2MCAvIDEwMDAgLyAyNCArIDE7XG4gIGNvbnN0IGRheXNBcnJheSA9IFtdO1xuICAvLyBjb25zdCBMb2NhbFNrdU1pZFByb2ZpdExpc3QgPSBjdHgubW9kZWwuRnVsaW4uTG9jYWxTa3VNaWRQcm9maXRMaXN0O1xuICBjb25zdCB4X2F4aXMgPSBbXTtcbiAgZm9yIChsZXQgaSA9IDA7IGkgPCBkYXlzOyBpKyspIHtcbiAgICBpZiAoaSAlIDcgPT09IDApIHtcbiAgICAgIGNvbnN0IHBTdGFydERhdGVNcyA9IHN0YXJ0RGF0ZU1zICsgaSAqIDYwICogNjAgKiAyNCAqIDEwMDA7XG4gICAgICBjb25zdCBwRW5kRGF0ZU1zID0gKHBTdGFydERhdGVNcyArIDYgKiAyNCAqIDYwICogNjAgKiAxMDAwKSA+IGVuZERhdGVNcyA/IGVuZERhdGVNcyA6IChwU3RhcnREYXRlTXMgKyA2ICogMjQgKiA2MCAqIDYwICogMTAwMCk7XG4gICAgICB4X2F4aXMucHVzaChkYXlqcyhzdGFydERhdGVNcyArIGkgKiA2MCAqIDYwICogMjQgKiAxMDAwKS5mb3JtYXQoJ1lZWVktTU0tREQnKSk7XG4gICAgICBkYXlzQXJyYXkucHVzaCh7XG4gICAgICAgIGRhdGVfc3RyOiBkYXlqcyhzdGFydERhdGVNcyArIGkgKiA2MCAqIDYwICogMjQgKiAxMDAwKS5mb3JtYXQoJ1lZWVktTU0tREQnKSxcbiAgICAgICAgLy8gc3RhcnREYXRlTXM6IHBTdGFydERhdGVNcyxcbiAgICAgICAgLy8gZW5kRGF0ZU1zOiBwRW5kRGF0ZU1zLFxuICAgICAgICBzdGFydF9kYXRlX3N0cjogZGF5anMoc3RhcnREYXRlTXMgKyBpICogNjAgKiA2MCAqIDI0ICogMTAwMCkuZm9ybWF0KCdZWVlZLU1NLUREJyksXG4gICAgICAgIGVuZF9kYXRlX3N0cjogZGF5anMocEVuZERhdGVNcykuZm9ybWF0KCdZWVlZLU1NLUREJyksXG5cbiAgICAgIH0pO1xuICAgIH1cbiAgfVxuICByZXR1cm4ge1xuICAgIGRheXNBcnJheSxcbiAgICB4X2F4aXMsXG4gIH07XG59XG5cbmV4cG9ydCBkZWZhdWx0IGFwaUhhbmRsZXIoKS5wb3N0KGFzeW5jKHJlcSxyZXMpID0+IHtcbiAgY29uc29sZS5sb2coJ3NrdScpXG5cbiAgY29uc3QgeyBjaWQsbWlkLHN0YXJ0RGF0ZSxlbmREYXRlLGxvY2FsX3NrdSB9ID0gcmVxLmJvZHk7XG5cbiAgLy8gY29uc3QgcHJvZml0TGlzdHMgID0gYXdhaXQgZ2V0UHJvZml0TGlzdHMocmVxLmJvZHkpXG4gIGNvbnN0IHtkYXlzQXJyYXkseF9heGlzfSA9IGdldERheUFycmF5KHN0YXJ0RGF0ZSwgZW5kRGF0ZSlcbiAgXG4gIGxldCBza3VMaXN0ID0gYXdhaXQgcHJpc21hLmxvY2FsX3NrdV9taWRfbGlzdHMuZmluZE1hbnkoe1xuICAgIHdoZXJlOiB7XG4gICAgICAuLi4oY2lkID8geyBjaWQgfSA6IHt9KSxcbiAgICAgIC4uLihtaWQgPyB7IG1pZCB9IDoge30pLFxuICAgICAgLi4uKGxvY2FsX3NrdSA/IHsgbG9jYWxfc2t1IH0gOiB7fSksXG5cbiAgICB9LFxuICB9KTtcbiAgbGV0IHJhdGVMaXN0ID0gYXdhaXQgcHJpc21hLnJhdGVfbGlzdHMuZmluZE1hbnkoKTtcbiAgY29uc3QgcmF0ZUVudW0gPSB7fTtcbiAgcmF0ZUxpc3QubWFwKGl0ZW0gPT4ge1xuICAgIHJhdGVFbnVtW2l0ZW0uY29kZV9kYXRlXSA9IGl0ZW07XG4gIH0pO1xuXG4gIGNvbnN0IGZldGNoRGF0YSA9IGF3YWl0IGdldFByb2ZpdExpc3RzKHtcbiAgICAgIGNpZCxcbiAgICAgIHN0YXJ0RGF0ZSxcbiAgICAgIGVuZERhdGUsXG4gICAgICAuLi4obWlkID8geyBtaWQ6U3RyaW5nKG1pZCkgfSA6IHt9KSxcbiAgICB9KTsgLy8g5oC75pWw5o2uXG5cbiAgICBjb25zdCBwU2t1TGlzdCA9IHNrdUxpc3QubWFwKChza3UsIGlpaSkgPT4ge1xuICAgICAgY29uc3Qgc2t1RGF0YSA9IGZldGNoRGF0YS5maWx0ZXIoZWxlbWVudCA9PiB7XG4gICAgICAgIHJldHVybiBza3UubG9jYWxfc2t1X21pZCA9PT0gZWxlbWVudC5sb2NhbF9za3VfbWlkO1xuICAgICAgfSk7XG4gICAgICAvLyBza3UuZGF0YSA9IFtdO1xuICAgICAgc2t1LnRpdGxlID0gc2t1LmxvY2FsX3NrdTtcblxuICAgICAgc2t1LmNvc3QgPSAwO1xuICAgICAgc2t1LmFkX29yZGVycyA9IDA7XG4gICAgICBza3Uuc2FsZXNfYW1vdW50ID0gMDtcbiAgICAgIHNrdS50b3RhbF92b2x1bWUgPSAwO1xuICAgICAgc2t1LmFkX3NhbGVzX2Ftb3VudCA9IDA7XG5cblxuICAgICAgc2t1LnNwQ29zdCA9IDA7XG4gICAgICBza3Uuc3BPcmRlck51bSA9IDA7XG4gICAgICBza3Uuc3BJbXByZXNzaW9ucyA9IDA7XG4gICAgICBza3Uuc3BDbGlja3MgPSAwO1xuICAgICAgc2t1LnNwU2FsZXNBbW91bnQgPSAwO1xuICBcdFx0c2t1LnNiU2t1Q29zdCA9IDA7XG4gICAgICBza3Uuc2JTa3VPcmRlck51bSA9IDA7XG4gICAgICBza3Uuc2JTa3VJbXByZXNzaW9ucyA9IDA7XG4gICAgICBza3Uuc2JTa3VDbGlja3MgPSAwO1xuICAgICAgc2t1LnNiU2t1U2FsZXNBbW91bnQgPSAwO1xuICBcdFx0c2t1LnNidkNvc3QgPSAwO1xuICAgICAgc2t1LnNidk9yZGVyTnVtID0gMDtcbiAgICAgIHNrdS5zYnZJbXByZXNzaW9ucyA9IDA7XG4gICAgICBza3Uuc2J2Q2xpY2tzID0gMDtcbiAgICAgIHNrdS5zYnZTYWxlc0Ftb3VudCA9IDA7XG4gIFx0XHRza3UuZENvc3QgPSAwO1xuICAgICAgc2t1LnNkT3JkZXJOdW0gPSAwO1xuICAgICAgc2t1LnNkSW1wcmVzc2lvbnMgPSAwO1xuICAgICAgc2t1LnNkQ2xpY2tzID0gMDtcbiAgICAgIHNrdS5zZFNhbGVzQW1vdW50ID0gMDtcblxuICAgICAgc2t1RGF0YS5tYXAoaXRlbSA9PiB7XG4gICAgICAgIHNrdS5zcENvc3QgKz0gTnVtYmVyKGl0ZW0uc3BfY29zdCB8fCAwKTtcbiAgICAgICAgc2t1LnNwT3JkZXJOdW0gKz0gTnVtYmVyKGl0ZW0uc3Bfb3JkZXJzIHx8IDApO1xuICAgICAgICBza3Uuc3BJbXByZXNzaW9ucyArPSBOdW1iZXIoaXRlbS5zcF9pbXByZXNzaW9ucyB8fCAwKTtcbiAgICAgICAgc2t1LnNwQ2xpY2tzICs9IE51bWJlcihpdGVtLnNwX2NsaWNrcyB8fCAwKTtcbiAgICAgICAgc2t1LnNwU2FsZXNBbW91bnQgKz0gTnVtYmVyKGl0ZW0uc3Bfc2FsZXNfYW1vdW50IHx8IDApO1xuXG5cbiAgICAgICAgc2t1LnNiU2t1Q29zdCArPSBOdW1iZXIoaXRlbS5zYl9jb3N0IHx8IDApO1xuICAgICAgICBza3Uuc2JTa3VPcmRlck51bSArPSBOdW1iZXIoaXRlbS5zYl9vcmRlcnMgfHwgMCk7XG4gICAgICAgIHNrdS5zYlNrdUltcHJlc3Npb25zICs9IE51bWJlcihpdGVtLnNiX2ltcHJlc3Npb25zIHx8IDApO1xuICAgICAgICBza3Uuc2JTa3VDbGlja3MgKz0gTnVtYmVyKGl0ZW0uc2JfY2xpY2tzIHx8IDApO1xuICAgICAgICBza3Uuc2JTa3VTYWxlc0Ftb3VudCArPSBOdW1iZXIoaXRlbS5zYl9zYWxlc19hbW91bnQgfHwgMCk7XG5cbiAgICAgICAgc2t1LnNidkNvc3QgKz0gTnVtYmVyKGl0ZW0uc2J2X2Nvc3QgfHwgMCk7XG4gICAgICAgIHNrdS5zYnZPcmRlck51bSArPSBOdW1iZXIoaXRlbS5zYl9vcmRlcnMgfHwgMCk7XG4gICAgICAgIHNrdS5zYnZJbXByZXNzaW9ucyArPSBOdW1iZXIoaXRlbS5zYnZfaW1wcmVzc2lvbnMgfHwgMCk7XG4gICAgICAgIHNrdS5zYnZDbGlja3MgKz0gTnVtYmVyKGl0ZW0uc2J2X2NsaWNrcyB8fCAwKTtcbiAgICAgICAgc2t1LnNidlNhbGVzQW1vdW50ICs9IE51bWJlcihpdGVtLnNidl9zYWxlc19hbW91bnQgfHwgMCk7XG5cblxuICAgICAgICBza3Uuc2RDb3N0ICs9IE51bWJlcihpdGVtLnNkX2Nvc3QgfHwgMCk7XG4gICAgICAgIHNrdS5zZE9yZGVyTnVtICs9IE51bWJlcihpdGVtLnNkX29yZGVycyB8fCAwKTtcbiAgICAgICAgc2t1LnNkSW1wcmVzc2lvbnMgKz0gTnVtYmVyKGl0ZW0uc2RfaW1wcmVzc2lvbnMgfHwgMCk7XG4gICAgICAgIHNrdS5zZENsaWNrcyArPSBOdW1iZXIoaXRlbS5zZF9jbGlja3MgfHwgMCk7XG4gICAgICAgIHNrdS5zZFNhbGVzQW1vdW50ICs9IE51bWJlcihpdGVtLnNkX3NhbGVzX2Ftb3VudCB8fCAwKTtcbiAgICAgIH0pO1xuXG4gICAgICBza3Uud2Vla0FkcyA9IFsgXTtcbiAgICAgIGNvbnN0IG5hbWUgPSBza3UubG9jYWxfc2t1O1xuICAgICAgc2t1LndlZWtBZHMgPSBbXTtcbiAgICAgIGRheXNBcnJheS5tYXAoKGVsZW1lbnQsIGpqamopID0+IHtcbiAgICAgICAgY29uc3Qgc3RhcnRNcyA9IGRheWpzKGVsZW1lbnQuc3RhcnRfZGF0ZV9zdHIpLnZhbHVlT2YoKTtcbiAgICAgICAgY29uc3QgZW5kTXMgPSBkYXlqcyhlbGVtZW50LmVuZF9kYXRlX3N0cikudmFsdWVPZigpO1xuICAgICAgICBjb25zdCBmaWx0ZXJEYXRhID0gc2t1RGF0YS5maWx0ZXIocHJvZml0RGF0YSA9PiB7XG4gICAgICAgICAgY29uc3QgeyBkYXRlX3N0ciB9ID0gcHJvZml0RGF0YTtcbiAgICAgICAgICBjb25zdCBkYXRlTXMgPSBkYXlqcyhkYXRlX3N0cikudmFsdWVPZigpO1xuICAgICAgICAgIHJldHVybiBkYXRlTXMgPj0gc3RhcnRNcyAmJiBkYXRlTXMgPD0gZW5kTXM7XG4gICAgICAgIH0pO1xuICAgICAgICBjb25zdCBvYmogPSB7XG4gICAgICAgICAgZGF0ZV9zdHI6IGVsZW1lbnQuZGF0ZV9zdHIsXG4gICAgICAgICAgZW5kX2RhdGVfc3RyOiBlbGVtZW50LmVuZF9kYXRlX3N0cixcbiAgICAgICAgICBzdGFydF9kYXRlX3N0cjogZWxlbWVudC5zdGFydF9kYXRlX3N0cixcbiAgICAgICAgICBzYWxlc19hbW91bnQ6IDAsXG4gICAgICAgICAgZ3Jvc3NfcHJvZml0OiAwLFxuICAgICAgICAgIGNvc3Q6IDAsXG4gICAgICAgICAgYWRfb3JkZXJzOiAwLFxuICAgICAgICAgIGFkX2NsaWNrczogMCxcbiAgICAgICAgICB3ZWVrRGF0YTogZmlsdGVyRGF0YSxcbiAgICAgICAgICBhZF9pbXByZXNzaW9uczogMCxcbiAgICAgICAgfTtcblxuICAgICAgICBmaWx0ZXJEYXRhLm1hcChwcm9maXQgPT4ge1xuICAgICAgICAgIGNvbnN0IGNvZGVfZGF0ZSA9IHByb2ZpdC5jb2RlICsgJ18nICsgZGF5anMocHJvZml0LmRhdGVfc3RyKS5mb3JtYXQoJ1lZWVktTU0nKTtcbiAgICAgICAgICBjb25zdCB1c19yYXRlID0gTnVtYmVyKHJhdGVFbnVtWydVU0RfJyArIGRheWpzKHByb2ZpdC5kYXRlX3N0cikuZm9ybWF0KCdZWVlZLU1NJyldLnJhdGUgfHwgMSk7XG4gICAgICAgICAgY29uc3QgcmF0ZSA9IE51bWJlcihyYXRlRW51bVtjb2RlX2RhdGVdLnJhdGUgfHwgMSk7XG4gICAgICAgICAgY29uc3QgcmF0aW8gPSAocmF0ZSAvIHVzX3JhdGUpIHx8IDE7XG4gICAgICAgICAgY29uc3QgYWRfY29zdCA9IE51bWJlcihwcm9maXQuc3BfY29zdCB8fCAwKSArIE51bWJlcihwcm9maXQuc2JfY29zdCB8fCAwKSArIE51bWJlcihwcm9maXQuc2J2X2Nvc3QgfHwgMCkgKyBOdW1iZXIocHJvZml0LnNkX2Nvc3QgfHwgMCk7XG4gICAgICAgICAgY29uc3QgYWRfb3JkZXJzID0gTnVtYmVyKHByb2ZpdC5zcF9vcmRlcnMgfHwgMCkgKyBOdW1iZXIocHJvZml0LnNiX29yZGVycyB8fCAwKSArIE51bWJlcihwcm9maXQuc2J2X29yZGVycyB8fCAwKSArIE51bWJlcihwcm9maXQuc2Rfb3JkZXJzIHx8IDApO1xuICAgICAgICAgIGNvbnN0IGFkX2NsaWNrcyA9IE51bWJlcihwcm9maXQuc3BfY2xpY2tzIHx8IDApICsgTnVtYmVyKHByb2ZpdC5zYl9jbGlja3MgfHwgMCkgKyBOdW1iZXIocHJvZml0LnNidl9jbGlja3MgfHwgMCkgKyBOdW1iZXIocHJvZml0LnNkX2NsaWNrcyB8fCAwKTtcbiAgICAgICAgICBjb25zdCBhZF9pbXByZXNzaW9ucyA9IE51bWJlcihwcm9maXQuc3BfY2xpY2tzIHx8IDApICsgTnVtYmVyKHByb2ZpdC5zYl9pbXByZXNzaW9ucyB8fCAwKSArIE51bWJlcihwcm9maXQuc2J2X2ltcHJlc3Npb25zIHx8IDApICsgTnVtYmVyKHByb2ZpdC5zZF9pbXByZXNzaW9ucyB8fCAwKTtcbiAgICAgICAgICBjb25zdCBncm9zc19wcm9maXQgPSBOdW1iZXIocHJvZml0LnRvdGFsX2Ftb3VudCB8fCAwKSArIE51bWJlcihwcm9maXQucmVmdW5kX2Ftb3VudCB8fCAwKSArIE51bWJlcihwcm9maXQuY2hhbm5lbF9mZWUgfHwgMCkgKyBOdW1iZXIocHJvZml0LmNvbW1pc3Npb25fYW1vdW50IHx8IDApICsgTnVtYmVyKHByb2ZpdC5wcm9tb3Rpb25fYW1vdW50IHx8IDApICsgTnVtYmVyKHByb2ZpdC50b3RhbF9jZ19wcmljZSB8fCAwKSArIE51bWJlcihwcm9maXQudG90YWxfY2dfdHJhbnNwb3J0X2Nvc3RzIHx8IDApICsgTnVtYmVyKHByb2ZpdC5vdGhlcl9vcmRlcl9mZWUgfHwgMCkgLSBhZF9jb3N0O1xuXG5cbiAgICAgICAgICBvYmouY29zdCArPSBhZF9jb3N0ICogcmF0aW87XG4gICAgICAgICAgb2JqLmFkX29yZGVycyArPSBOdW1iZXIoYWRfb3JkZXJzKTtcbiAgICAgICAgICBvYmouYWRfY2xpY2tzICs9IE51bWJlcihhZF9jbGlja3MpO1xuICAgICAgICAgIG9iai5zYWxlc19hbW91bnQgKz0gTnVtYmVyKHByb2ZpdC50b3RhbF9hbW91bnQpICogcmF0aW87XG4gICAgICAgICAgb2JqLmFkX2ltcHJlc3Npb25zICs9IE51bWJlcihhZF9pbXByZXNzaW9ucyk7XG4gICAgICAgICAgb2JqLmdyb3NzX3Byb2ZpdCArPSBOdW1iZXIoZ3Jvc3NfcHJvZml0KSAqIHJhdGlvO1xuICAgICAgICAgIG9iai50b3RhbF9hY29zID0gKG9iai5jb3N0IC8gb2JqLnNhbGVzX2Ftb3VudCkgKiAxMDA7XG4gICAgICAgICAgb2JqLnByb2ZpdF9yYXRlID0gKG9iai5ncm9zc19wcm9maXQgLyBvYmouc2FsZXNfYW1vdW50KSAqIDEwMDtcbiAgICAgICAgfSk7XG5cblxuICAgICAgICBza3Uud2Vla0Fkcy5wdXNoKG9iaik7XG5cbiAgICAgIH0pO1xuXG4gICAgICBza3VEYXRhLm1hcChlbGVtZW50ID0+IHtcbiAgICAgICAgY29uc3QgY29kZV9kYXRlID0gZWxlbWVudC5jb2RlICsgJ18nICsgZGF5anMoZWxlbWVudC5kYXRlX3N0cikuZm9ybWF0KCdZWVlZLU1NJyk7XG4gICAgICAgIGNvbnN0IHVzX3JhdGUgPSBOdW1iZXIocmF0ZUVudW1bJ1VTRF8nICsgZGF5anMoZWxlbWVudC5kYXRlX3N0cikuZm9ybWF0KCdZWVlZLU1NJyldLnJhdGUgfHwgMSk7XG4gICAgICAgIGNvbnN0IHJhdGUgPSBOdW1iZXIocmF0ZUVudW1bY29kZV9kYXRlXS5yYXRlIHx8IDEpO1xuICAgICAgICBjb25zdCByYXRpbyA9IChyYXRlIC8gdXNfcmF0ZSkgfHwgMTtcbiAgICAgICAgY29uc3QgYWRfY29zdCA9IE51bWJlcihlbGVtZW50LnNwX2Nvc3QgfHwgMCkgKyBOdW1iZXIoZWxlbWVudC5zYl9jb3N0IHx8IDApICsgTnVtYmVyKGVsZW1lbnQuc2J2X2Nvc3QgfHwgMCkgKyBOdW1iZXIoZWxlbWVudC5zZF9jb3N0IHx8IDApO1xuICAgICAgICBjb25zdCBncm9zc19wcm9maXQgPSBOdW1iZXIoZWxlbWVudC50b3RhbF9hbW91bnQgfHwgMCkgKyBOdW1iZXIoZWxlbWVudC5yZWZ1bmRfYW1vdW50IHx8IDApICsgTnVtYmVyKGVsZW1lbnQuY2hhbm5lbF9mZWUgfHwgMCkgKyBOdW1iZXIoZWxlbWVudC5jb21taXNzaW9uX2Ftb3VudCB8fCAwKSArIE51bWJlcihlbGVtZW50LnByb21vdGlvbl9hbW91bnQgfHwgMCkgKyBOdW1iZXIoZWxlbWVudC50b3RhbF9jZ19wcmljZSB8fCAwKSArIE51bWJlcihlbGVtZW50LnRvdGFsX2NnX3RyYW5zcG9ydF9jb3N0cyB8fCAwKSArIE51bWJlcihlbGVtZW50Lm90aGVyX29yZGVyX2ZlZSB8fCAwKSAtIGFkX2Nvc3Q7XG4gICAgICAgIGNvbnN0IGFkX29yZGVycyA9IE51bWJlcihlbGVtZW50LnNwX29yZGVycyB8fCAwKSArIE51bWJlcihlbGVtZW50LnNiX29yZGVycyB8fCAwKSArIE51bWJlcihlbGVtZW50LnNidl9vcmRlcnMgfHwgMCkgKyBOdW1iZXIoZWxlbWVudC5zZF9vcmRlcnMgfHwgMCk7XG4gICAgICAgIGNvbnN0IGFkX3NhbGVzX2Ftb3VudCA9IE51bWJlcihlbGVtZW50LnNwX3NhbGVzX2Ftb3VudCB8fCAwKSArIE51bWJlcihlbGVtZW50LnNhbGVzX2Ftb3VudCB8fCAwKSArIE51bWJlcihlbGVtZW50LnNidl9zYWxlc19hbW91bnQgfHwgMCkgKyBOdW1iZXIoZWxlbWVudC5zZF9zYWxlc19hbW91bnQgfHwgMCk7XG5cbiAgICAgICAgc2t1LnRvdGFsX3ZvbHVtZSArPSBOdW1iZXIoZWxlbWVudC50b3RhbF92b2x1bWUpO1xuICAgICAgICBza3UuZ3Jvc3NfcHJvZml0ICs9IE51bWJlcihncm9zc19wcm9maXQpICogcmF0aW87XG4gICAgICAgIHNrdS5jb3N0ICs9IGFkX2Nvc3QgKiByYXRpbztcbiAgICAgICAgc2t1LnNhbGVzX2Ftb3VudCArPSBOdW1iZXIoZWxlbWVudC50b3RhbF9hbW91bnQpICogcmF0aW87XG4gICAgICAgIHNrdS5hZF9zYWxlc19hbW91bnQgKz0gTnVtYmVyKGFkX3NhbGVzX2Ftb3VudCkgKiByYXRpbztcbiAgICAgICAgc2t1LmNpZCA9IGVsZW1lbnQuY2lkO1xuICAgICAgICBza3UubWlkID0gZWxlbWVudC5taWQ7XG4gICAgICAgIHNrdS5hZF9vcmRlcnMgKz0gYWRfb3JkZXJzO1xuICAgICAgICBza3UucmF0aW8gPSByYXRpbztcblxuICAgICAgICAvLyBza3UuZGF0YS5wdXNoKGVsZW1lbnQpO1xuICAgICAgfSk7XG5cblxuICAgICAgcmV0dXJuIHNrdTtcbiAgICB9KTtcbiAgICBwU2t1TGlzdC5zb3J0KChhLCBiKSA9PiBiLnNhbGVzX2Ftb3VudCAtIGEuc2FsZXNfYW1vdW50KTtcblxuXG4gIHJlcy5zZW5kKHtcbiAgICByZXNwb25zZTp7XG4gICAgICBjYXRlZ29yaWVzOiBwU2t1TGlzdCxcbiAgICAgIHhfYXhpcyxcbiAgICB9XG4gIH0pXG4gIHJlcy5lbmQoKVxuXG59KTsiXSwibmFtZXMiOlsiYXBpSGFuZGxlciIsImdldFByb2ZpdExpc3RzIiwiZGF5anMiLCJwcmlzbWEiLCJnZXREYXlBcnJheSIsInN0YXJ0RGF0ZSIsImVuZERhdGUiLCJzdGFydERhdGVNcyIsInZhbHVlT2YiLCJlbmREYXRlTXMiLCJkYXlzIiwiZGF5c0FycmF5IiwieF9heGlzIiwiaSIsInBTdGFydERhdGVNcyIsInBFbmREYXRlTXMiLCJwdXNoIiwiZm9ybWF0IiwiZGF0ZV9zdHIiLCJzdGFydF9kYXRlX3N0ciIsImVuZF9kYXRlX3N0ciIsInBvc3QiLCJyZXEiLCJyZXMiLCJjb25zb2xlIiwibG9nIiwiY2lkIiwibWlkIiwibG9jYWxfc2t1IiwiYm9keSIsInNrdUxpc3QiLCJsb2NhbF9za3VfbWlkX2xpc3RzIiwiZmluZE1hbnkiLCJ3aGVyZSIsInJhdGVMaXN0IiwicmF0ZV9saXN0cyIsInJhdGVFbnVtIiwibWFwIiwiaXRlbSIsImNvZGVfZGF0ZSIsImZldGNoRGF0YSIsIlN0cmluZyIsInBTa3VMaXN0Iiwic2t1IiwiaWlpIiwic2t1RGF0YSIsImZpbHRlciIsImVsZW1lbnQiLCJsb2NhbF9za3VfbWlkIiwidGl0bGUiLCJjb3N0IiwiYWRfb3JkZXJzIiwic2FsZXNfYW1vdW50IiwidG90YWxfdm9sdW1lIiwiYWRfc2FsZXNfYW1vdW50Iiwic3BDb3N0Iiwic3BPcmRlck51bSIsInNwSW1wcmVzc2lvbnMiLCJzcENsaWNrcyIsInNwU2FsZXNBbW91bnQiLCJzYlNrdUNvc3QiLCJzYlNrdU9yZGVyTnVtIiwic2JTa3VJbXByZXNzaW9ucyIsInNiU2t1Q2xpY2tzIiwic2JTa3VTYWxlc0Ftb3VudCIsInNidkNvc3QiLCJzYnZPcmRlck51bSIsInNidkltcHJlc3Npb25zIiwic2J2Q2xpY2tzIiwic2J2U2FsZXNBbW91bnQiLCJkQ29zdCIsInNkT3JkZXJOdW0iLCJzZEltcHJlc3Npb25zIiwic2RDbGlja3MiLCJzZFNhbGVzQW1vdW50IiwiTnVtYmVyIiwic3BfY29zdCIsInNwX29yZGVycyIsInNwX2ltcHJlc3Npb25zIiwic3BfY2xpY2tzIiwic3Bfc2FsZXNfYW1vdW50Iiwic2JfY29zdCIsInNiX29yZGVycyIsInNiX2ltcHJlc3Npb25zIiwic2JfY2xpY2tzIiwic2Jfc2FsZXNfYW1vdW50Iiwic2J2X2Nvc3QiLCJzYnZfaW1wcmVzc2lvbnMiLCJzYnZfY2xpY2tzIiwic2J2X3NhbGVzX2Ftb3VudCIsInNkQ29zdCIsInNkX2Nvc3QiLCJzZF9vcmRlcnMiLCJzZF9pbXByZXNzaW9ucyIsInNkX2NsaWNrcyIsInNkX3NhbGVzX2Ftb3VudCIsIndlZWtBZHMiLCJuYW1lIiwiampqaiIsInN0YXJ0TXMiLCJlbmRNcyIsImZpbHRlckRhdGEiLCJwcm9maXREYXRhIiwiZGF0ZU1zIiwib2JqIiwiZ3Jvc3NfcHJvZml0IiwiYWRfY2xpY2tzIiwid2Vla0RhdGEiLCJhZF9pbXByZXNzaW9ucyIsInByb2ZpdCIsImNvZGUiLCJ1c19yYXRlIiwicmF0ZSIsInJhdGlvIiwiYWRfY29zdCIsInNidl9vcmRlcnMiLCJ0b3RhbF9hbW91bnQiLCJyZWZ1bmRfYW1vdW50IiwiY2hhbm5lbF9mZWUiLCJjb21taXNzaW9uX2Ftb3VudCIsInByb21vdGlvbl9hbW91bnQiLCJ0b3RhbF9jZ19wcmljZSIsInRvdGFsX2NnX3RyYW5zcG9ydF9jb3N0cyIsIm90aGVyX29yZGVyX2ZlZSIsInRvdGFsX2Fjb3MiLCJwcm9maXRfcmF0ZSIsInNvcnQiLCJhIiwiYiIsInNlbmQiLCJyZXNwb25zZSIsImNhdGVnb3JpZXMiLCJlbmQiXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./pages/api/statistic/getSkuStatistic.ts\n");
+
+/***/ }),
+
+/***/ "./utils.server.ts":
+/*!*************************!*\
+  !*** ./utils.server.ts ***!
+  \*************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var next_connect__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! next-connect */ \"next-connect\");\n/* harmony import */ var next_connect__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(next_connect__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _hapi_boom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @hapi/boom */ \"@hapi/boom\");\n/* harmony import */ var _hapi_boom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_hapi_boom__WEBPACK_IMPORTED_MODULE_1__);\n\n\n\nconst apiHandler = () => next_connect__WEBPACK_IMPORTED_MODULE_0___default()({\n  onError(err, req, res) {\n    if (_hapi_boom__WEBPACK_IMPORTED_MODULE_1__.isBoom(err)) {\n      console.log(err);\n      res.status(err.output.payload.statusCode);\n      res.json({\n        error: err.output.payload.error,\n        message: err.output.payload.message\n      });\n    } else {\n      res.status(500);\n      res.json({\n        message: \"Unexpected error\"\n      });\n      console.error(err); // unexcepted error\n    }\n  }\n\n});\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (apiHandler);//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi91dGlscy5zZXJ2ZXIudHMuanMiLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7QUFBQTtBQUNBOztBQUlBLE1BQU1FLFVBQVUsR0FBRyxNQUNqQkYsbURBQUUsQ0FBa0M7QUFDbENHLEVBQUFBLE9BQU8sQ0FBQ0MsR0FBRCxFQUFNQyxHQUFOLEVBQVdDLEdBQVgsRUFBZ0I7QUFDckIsUUFBSUwsOENBQUEsQ0FBWUcsR0FBWixDQUFKLEVBQXNCO0FBQ3BCSSxNQUFBQSxPQUFPLENBQUNDLEdBQVIsQ0FBWUwsR0FBWjtBQUNBRSxNQUFBQSxHQUFHLENBQUNJLE1BQUosQ0FBV04sR0FBRyxDQUFDTyxNQUFKLENBQVdDLE9BQVgsQ0FBbUJDLFVBQTlCO0FBQ0FQLE1BQUFBLEdBQUcsQ0FBQ1EsSUFBSixDQUFTO0FBQ1BDLFFBQUFBLEtBQUssRUFBRVgsR0FBRyxDQUFDTyxNQUFKLENBQVdDLE9BQVgsQ0FBbUJHLEtBRG5CO0FBRVBDLFFBQUFBLE9BQU8sRUFBRVosR0FBRyxDQUFDTyxNQUFKLENBQVdDLE9BQVgsQ0FBbUJJO0FBRnJCLE9BQVQ7QUFJRCxLQVBELE1BT087QUFDTFYsTUFBQUEsR0FBRyxDQUFDSSxNQUFKLENBQVcsR0FBWDtBQUNBSixNQUFBQSxHQUFHLENBQUNRLElBQUosQ0FBUztBQUNQRSxRQUFBQSxPQUFPLEVBQUU7QUFERixPQUFUO0FBR0FSLE1BQUFBLE9BQU8sQ0FBQ08sS0FBUixDQUFjWCxHQUFkLEVBTEssQ0FNTDtBQUNEO0FBQ0Y7O0FBakJpQyxDQUFsQyxDQURKOztBQXFCQSxpRUFBZUYsVUFBZiIsInNvdXJjZXMiOlsid2VicGFjazovL215LW5leHQvLi91dGlscy5zZXJ2ZXIudHM/ZTAzZCJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgbmMgZnJvbSBcIm5leHQtY29ubmVjdFwiO1xuaW1wb3J0ICogYXMgQm9vbSBmcm9tIFwiQGhhcGkvYm9vbVwiO1xuaW1wb3J0IHsgTmV4dEFwaVJlcXVlc3QsIE5leHRBcGlSZXNwb25zZSB9IGZyb20gXCJuZXh0XCI7XG5pbXBvcnQgYm9keVBhcnNlciBmcm9tICdib2R5LXBhcnNlcic7XG5cbmNvbnN0IGFwaUhhbmRsZXIgPSAoKSA9PlxuICBuYzxOZXh0QXBpUmVxdWVzdCwgTmV4dEFwaVJlc3BvbnNlPih7XG4gICAgb25FcnJvcihlcnIsIHJlcSwgcmVzKSB7XG4gICAgICBpZiAoQm9vbS5pc0Jvb20oZXJyKSkge1xuICAgICAgICBjb25zb2xlLmxvZyhlcnIpO1xuICAgICAgICByZXMuc3RhdHVzKGVyci5vdXRwdXQucGF5bG9hZC5zdGF0dXNDb2RlKTtcbiAgICAgICAgcmVzLmpzb24oe1xuICAgICAgICAgIGVycm9yOiBlcnIub3V0cHV0LnBheWxvYWQuZXJyb3IsXG4gICAgICAgICAgbWVzc2FnZTogZXJyLm91dHB1dC5wYXlsb2FkLm1lc3NhZ2UsXG4gICAgICAgIH0pO1xuICAgICAgfSBlbHNlIHtcbiAgICAgICAgcmVzLnN0YXR1cyg1MDApO1xuICAgICAgICByZXMuanNvbih7XG4gICAgICAgICAgbWVzc2FnZTogXCJVbmV4cGVjdGVkIGVycm9yXCIsXG4gICAgICAgIH0pO1xuICAgICAgICBjb25zb2xlLmVycm9yKGVycik7XG4gICAgICAgIC8vIHVuZXhjZXB0ZWQgZXJyb3JcbiAgICAgIH1cbiAgICB9LFxuICB9KTtcblxuZXhwb3J0IGRlZmF1bHQgYXBpSGFuZGxlciJdLCJuYW1lcyI6WyJuYyIsIkJvb20iLCJhcGlIYW5kbGVyIiwib25FcnJvciIsImVyciIsInJlcSIsInJlcyIsImlzQm9vbSIsImNvbnNvbGUiLCJsb2ciLCJzdGF0dXMiLCJvdXRwdXQiLCJwYXlsb2FkIiwic3RhdHVzQ29kZSIsImpzb24iLCJlcnJvciIsIm1lc3NhZ2UiXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./utils.server.ts\n");
+
+/***/ }),
+
+/***/ "./utils/getProfitLists.ts":
+/*!*********************************!*\
+  !*** ./utils/getProfitLists.ts ***!
+  \*********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _lib_prisma__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../lib/prisma */ \"./lib/prisma.js\");\nfunction ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }\n\nfunction _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }\n\nfunction _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }\n\n\n\nasync function getProfitData(req) {\n  const {\n    cid,\n    mid,\n    startDate,\n    endDate\n  } = req;\n\n  const where = _objectSpread(_objectSpread(_objectSpread({}, cid ? {\n    cid\n  } : {}), mid ? {\n    mid\n  } : {}), {}, {\n    date_str: {\n      gte: startDate,\n      lt: endDate\n    }\n  });\n\n  return await _lib_prisma__WEBPACK_IMPORTED_MODULE_0__.default.local_sku_mid_profit_lists.findMany({\n    where\n  });\n}\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (getProfitData);//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi91dGlscy9nZXRQcm9maXRMaXN0cy50cy5qcyIsIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7OztBQUFBOztBQUdBLGVBQWVDLGFBQWYsQ0FBNkJDLEdBQTdCLEVBQWtEO0FBQ2hELFFBQU07QUFBRUMsSUFBQUEsR0FBRjtBQUFNQyxJQUFBQSxHQUFOO0FBQVVDLElBQUFBLFNBQVY7QUFBb0JDLElBQUFBO0FBQXBCLE1BQWdDSixHQUF0Qzs7QUFDQSxRQUFNSyxLQUFLLGlEQUNMSixHQUFHLEdBQUc7QUFBRUEsSUFBQUE7QUFBRixHQUFILEdBQWEsRUFEWCxHQUVMQyxHQUFHLEdBQUc7QUFBRUEsSUFBQUE7QUFBRixHQUFILEdBQWEsRUFGWDtBQUdUSSxJQUFBQSxRQUFRLEVBQUU7QUFDUkMsTUFBQUEsR0FBRyxFQUFFSixTQURHO0FBRVJLLE1BQUFBLEVBQUUsRUFBR0o7QUFGRztBQUhELElBQVg7O0FBU0EsU0FBTyxNQUFNTixvRkFBQSxDQUEyQztBQUN0RE8sSUFBQUE7QUFEc0QsR0FBM0MsQ0FBYjtBQUdEOztBQUdELGlFQUFlTixhQUFmIiwic291cmNlcyI6WyJ3ZWJwYWNrOi8vbXktbmV4dC8uL3V0aWxzL2dldFByb2ZpdExpc3RzLnRzP2Y5YzkiXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHByaXNtYSBmcm9tICcuLi9saWIvcHJpc21hJ1xuXG5cbmFzeW5jIGZ1bmN0aW9uIGdldFByb2ZpdERhdGEocmVxKTogUHJvbWlzZTxvYmplY3Q+e1xuICBjb25zdCB7IGNpZCxtaWQsc3RhcnREYXRlLGVuZERhdGUgfSA9IHJlcTtcbiAgY29uc3Qgd2hlcmUgPSB7XG4gICAgLi4uKGNpZCA/IHsgY2lkIH0gOiB7fSksXG4gICAgLi4uKG1pZCA/IHsgbWlkIH0gOiB7fSksXG4gICAgZGF0ZV9zdHI6IHtcbiAgICAgIGd0ZTogc3RhcnREYXRlLFxuICAgICAgbHQ6ICBlbmREYXRlXG4gICAgfSxcbiAgfTtcblxuICByZXR1cm4gYXdhaXQgcHJpc21hLmxvY2FsX3NrdV9taWRfcHJvZml0X2xpc3RzLmZpbmRNYW55KHtcbiAgICB3aGVyZVxuICB9KVxufVxuXG5cbmV4cG9ydCBkZWZhdWx0IGdldFByb2ZpdERhdGEiXSwibmFtZXMiOlsicHJpc21hIiwiZ2V0UHJvZml0RGF0YSIsInJlcSIsImNpZCIsIm1pZCIsInN0YXJ0RGF0ZSIsImVuZERhdGUiLCJ3aGVyZSIsImRhdGVfc3RyIiwiZ3RlIiwibHQiLCJsb2NhbF9za3VfbWlkX3Byb2ZpdF9saXN0cyIsImZpbmRNYW55Il0sInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./utils/getProfitLists.ts\n");
+
+/***/ }),
+
+/***/ "@hapi/boom":
+/*!*****************************!*\
+  !*** external "@hapi/boom" ***!
+  \*****************************/
 /***/ ((module) => {
 
 module.exports = require("@hapi/boom");
 
 /***/ }),
 
-/***/ 212:
+/***/ "@prisma/client":
+/*!*********************************!*\
+  !*** external "@prisma/client" ***!
+  \*********************************/
 /***/ ((module) => {
 
 module.exports = require("@prisma/client");
 
 /***/ }),
 
-/***/ 349:
+/***/ "dayjs":
+/*!************************!*\
+  !*** external "dayjs" ***!
+  \************************/
 /***/ ((module) => {
 
 module.exports = require("dayjs");
 
 /***/ }),
 
-/***/ 303:
+/***/ "next-connect":
+/*!*******************************!*\
+  !*** external "next-connect" ***!
+  \*******************************/
 /***/ ((module) => {
 
 module.exports = require("next-connect");
@@ -260,7 +100,7 @@ module.exports = require("next-connect");
 var __webpack_require__ = require("../../../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [198,399], () => (__webpack_exec__(143)));
+var __webpack_exports__ = (__webpack_exec__("./pages/api/statistic/getSkuStatistic.ts"));
 module.exports = __webpack_exports__;
 
 })();
