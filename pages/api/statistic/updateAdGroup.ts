@@ -59,7 +59,7 @@ export default apiHandler().post(async(req,res) => {
 
   const reqData  = {...reqBody,...pData}
 
-  const {sbGroups = [], spGroups = [], local_sku_mid = '', cid, category_text} = reqData
+  const {sbGroups = [], spGroups = [], local_sku_mid = '', cid, category_text} = req.body
 
   let sbGroupList = await prisma.local_sku_mid_sb_groups.findMany()
 

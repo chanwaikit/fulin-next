@@ -9,9 +9,19 @@ import prisma from '../../../lib/prisma'
 export default apiHandler().post(async(req,res) => {
   console.log('sku-ad')
 
-
-  let shopList = await prisma.local_shop_lists.findMany()
+  const { mid,local_sku } = req.body;
+  
+  let shopList = await prisma.local_shop_lists.findMany({
+    // ...(mid?{mid}:{})
+    where:{
+      mid
+    }
+  })
   let Sku = await prisma.local_sku_mid_lists.findMany({
+    // ...(local_sku?{where:{local_sku}}:{}),
+    where:{
+      local_sku
+    },
     include: {
       local_sku_mid_through_sb_tables:{
         include:{
