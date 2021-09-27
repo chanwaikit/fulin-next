@@ -37,7 +37,7 @@ export default apiHandler().post(async(req,res) => {
   console.log('sku')
 
   const { mid,startDate,endDate,local_sku } = req.body;
-  const cid  = String(req.body.cid)
+  const cid  = String(req.body.cid || '')
   // const profitLists  = await getProfitLists(req.body)
   const {daysArray,x_axis} = getDayArray(startDate, endDate)
   console.log(43,cid)
