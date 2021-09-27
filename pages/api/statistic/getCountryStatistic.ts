@@ -55,7 +55,7 @@ export default apiHandler().post(async(req,res) => {
       daysArray.map(element => {
         promiseArray.push({
           ...element,
-          cid,
+          cid:String(cid),
           mid: item.mid,
           title: item.title,
         });

@@ -36,15 +36,15 @@ const getDayArray = (startDate, endDate) => {
 export default apiHandler().post(async(req,res) => {
   console.log('sku')
 
-  const { cid,mid,startDate,endDate,local_sku } = req.body;
-
+  const { mid,startDate,endDate,local_sku } = req.body;
+  const cid  = String(req.body.cid)
   // const profitLists  = await getProfitLists(req.body)
   const {daysArray,x_axis} = getDayArray(startDate, endDate)
-  
+  console.log(43,cid)
   let skuList = await prisma.local_sku_mid_lists.findMany({
     where: {
-      ...(cid ? { cid } : {}),
-      ...(mid ? { mid } : {}),
+      ...(cid ? { cid:String(cid) } : {}),
+      ...(mid ? { mid :String(mid)} : {}),
       ...(local_sku ? { local_sku } : {}),
 
     },
