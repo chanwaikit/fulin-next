@@ -42,7 +42,6 @@ export default apiHandler().post(async(req,res) => {
   
   let categories = await prisma.categories.findMany();
   let rateList = await prisma.rate_lists.findMany();
-
   const rateEnum = {};
   rateList.map(item => {
     rateEnum[item.code_date] = item;

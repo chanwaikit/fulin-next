@@ -36,7 +36,7 @@ const getDayArray = (startDate, endDate) => {
 export default apiHandler().post(async(req,res) => {
   console.log('sku')
 
-  const { mid,startDate,endDate,local_sku } = req.body;
+  const { mid,startDate,endDate,local_sku,currencyType = 2 } = req.body;
   const cid  = String(req.body.cid || '')
   // const profitLists  = await getProfitLists(req.body)
   const {daysArray,x_axis} = getDayArray(startDate, endDate)
@@ -91,7 +91,7 @@ export default apiHandler().post(async(req,res) => {
       sku.sbvImpressions = 0;
       sku.sbvClicks = 0;
       sku.sbvSalesAmount = 0;
-  		sku.dCost = 0;
+  		sku.sdCost = 0;
       sku.sdOrderNum = 0;
       sku.sdImpressions = 0;
       sku.sdClicks = 0;
@@ -153,7 +153,7 @@ export default apiHandler().post(async(req,res) => {
           const code_date = profit.code + '_' + dayjs(profit.date_str).format('YYYY-MM');
           const us_rate = Number(rateEnum['USD_' + dayjs(profit.date_str).format('YYYY-MM')].rate || 1);
           const rate = Number(rateEnum[code_date].rate || 1);
-          const ratio = (rate / us_rate) || 1;
+          const ratio = currencyType == 2 ? ((rate / us_rate) || 1):1;
           const ad_cost = Number(profit.sp_cost || 0) + Number(profit.sb_cost || 0) + Number(profit.sbv_cost || 0) + Number(profit.sd_cost || 0);
           const ad_orders = Number(profit.sp_orders || 0) + Number(profit.sb_orders || 0) + Number(profit.sbv_orders || 0) + Number(profit.sd_orders || 0);
           const ad_clicks = Number(profit.sp_clicks || 0) + Number(profit.sb_clicks || 0) + Number(profit.sbv_clicks || 0) + Number(profit.sd_clicks || 0);

@@ -7,161 +7,10 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
-model ad_campaign_report_sb {
-  date           String? @db.Text
-  campaign_id    String? @db.Text
-  campaign_name  String? @db.Text
-  currency_code  String? @db.Text
-  creative_type  String? @db.Text
-  impressions    String? @db.Text
-  clicks         String? @db.Text
-  cost           String? @db.Text
-  order_quantity String? @db.Text
-  sales_amount   String? @db.Text
-  ctr            String? @db.Text
-  cpc            String? @db.Text
-  cvr            String? @db.Text
-  cpa            String? @db.Text
-  acos           String? @db.Text
-
-  @@ignore
-}
-
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
-model ad_product_report_sp_group {
-  date            String? @db.Text
-  ad_group_id     String? @db.Text
-  ad_group_name   String? @db.Text
-  campaign_id     String? @db.Text
-  campaign_name   String? @db.Text
-  ad_id           String? @db.Text
-  currency_code   String? @db.Text
-  small_image_url String? @db.Text
-  local_sku       String? @db.Text
-  local_name      String? @db.Text
-  sku             String? @db.Text
-  asin            String? @db.Text
-  impressions     String? @db.Text
-  clicks          String? @db.Text
-  cost            String? @db.Text
-  order_quantity  String? @db.Text
-  sales_amount    String? @db.Text
-  ctr             String? @db.Text
-  cpc             String? @db.Text
-  cvr             String? @db.Text
-  cpa             String? @db.Text
-  acos            String? @db.Text
-
-  @@ignore
-}
-
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
-model ad_products_sd {
-  date           String? @db.Text
-  asin           String? @db.Text
-  sku            String? @db.Text
-  serving_status String? @db.Text
-  ad_group_id    String? @db.Text
-  campaign_id    String? @db.Text
-  image_url      String? @db.Text
-  currency_code  String? @db.Text
-  campaign_name  String? @db.Text
-  group_name     String? @db.Text
-  type           String? @db.Text
-  impressions    String? @db.Text
-  clicks         String? @db.Text
-  cost           String? @db.Text
-  order_num      String? @db.Text
-  sales_amount   String? @db.Text
-  ctr            String? @db.Text
-  cpc            String? @db.Text
-  cvr            String? @db.Text
-  cpa            String? @db.Text
-  acos           String? @db.Text
-  roas           String? @db.Text
-
-  @@ignore
-}
-
 model categories {
   cid   String  @id @db.VarChar(255)
   title String? @db.VarChar(255)
 }
-
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
-model cost_collection {
-  date              String? @db.Text
-  shop_name         String? @db.Text
-  asin1             String? @db.VarChar(45)
-  asin2             String? @db.VarChar(45)
-  asin3             String? @db.VarChar(45)
-  currency_code     String? @db.VarChar(45)
-  cost_collection   String? @db.VarChar(45)
-  orders_collection String? @db.VarChar(45)
-
-  @@ignore
-}
-
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
-model cost_sbv {
-  date          String? @db.Text
-  sid           String? @db.Text
-  shop_name     String? @db.Text
-  campaign_id   String? @db.Text
-  currency_code String? @db.Text
-  asin          String? @db.Text
-  cost_sbv      String? @db.Text
-  orders_sbv    String? @db.Text
-
-  @@ignore
-}
-
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
-model cost_sbv1 {
-  date          String? @db.Text
-  sid           String? @db.Text
-  shop_name     String? @db.Text
-  currency_code String? @db.Text
-  asin          String? @db.Text
-  cost_sbv      String? @db.Text
-  orders_sbv    String? @db.Text
-
-  @@ignore
-}
-
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
-model cost_sd {
-  date          String? @db.Text
-  sid           String? @db.Text
-  shop_name     String? @db.Text
-  currency_code String? @db.Text
-  asin          String? @db.Text
-  sku           String? @db.Text
-  cost_sd       Float?
-  orders_sd     Int?
-
-  @@ignore
-}
-
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
-model cost_sp {
-  date          String? @db.Text
-  campaign_id   BigInt?
-  currency_code String? @db.Text
-  local_sku     String? @db.Text
-  local_name    String? @db.Text
-  sku           String? @db.Text
-  asin          String? @db.Text
-  cost_sp       Float?
-  orders_sp     Int?
-  amount_sp     Float?
-
-  @@ignore
-}
-
-
-
 
 model local_shop_lists {
   sid                     String                    @id @db.VarChar(255)
@@ -281,271 +130,6 @@ model local_sku_mid_through_sb_tables {
   @@index([local_sku_mid], map: "local_sku_mid")
 }
 
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
-model mapping_collection {
-  campign_id    BigInt?
-  sid           Int?
-  shop_name     String? @db.Text
-  campaign_name String? @db.Text
-  currency_code String? @db.Text
-  asin1         String? @db.Text
-  asin2         String? @db.Text
-  asin3         String? @db.Text
-
-  @@ignore
-}
-
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
-model mapping_sbv {
-  sid           Int?
-  shop_name     String? @db.Text
-  country       String? @db.Text
-  campaign_id   BigInt?
-  campaign_name String? @db.Text
-  asin          String? @db.Text
-
-  @@ignore
-}
-
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
-model mapping_sd {
-  sid           Int?
-  shop_name     String? @db.Text
-  currency_code String? @db.Text
-  asin          String? @db.Text
-  sku           String? @db.Text
-
-  @@ignore
-}
-
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
-model performance {
-  date                           DateTime? @db.Date
-  sid                            String?   @db.Text
-  shop_name                      String?   @db.Text
-  pid                            String?   @db.Text
-  price                          String?   @db.Text
-  cid                            String?   @db.Text
-  bid                            String?   @db.Text
-  avaiable_days                  String?   @db.Text
-  order_items                    String?   @db.Text
-  volume                         String?   @db.Text
-  amount                         String?   @db.Text
-  sessions                       String?   @db.Text
-  buy_box_percentage             String?   @db.Text
-  page_views                     String?   @db.Text
-  clicks                         String?   @db.Text
-  impressions                    String?   @db.Text
-  total_spend                    String?   @db.Text
-  ctr                            String?   @db.Text
-  avg_cpc                        String?   @db.Text
-  rank                           String?   @db.Text
-  reviews                        String?   @db.Text
-  avg_star                       String?   @db.Text
-  conversion_rate                String?   @db.Text
-  total_spend_rate               String?   @db.Text
-  afn_fulfillable_quantity       String?   @db.Text
-  reserved_fc_transfers          String?   @db.Text
-  reserved_fc_processing         String?   @db.Text
-  reserved_customerorders        String?   @db.Text
-  afn_inbound_shipped_quantity   String?   @db.Text
-  afn_unsellable_quantity        String?   @db.Text
-  afn_inbound_receiving_quantity String?   @db.Text
-  afn_inbound_working_quantity   String?   @db.Text
-  acos                           String?   @db.Text
-  acoas                          String?   @db.Text
-  order_quantity                 String?   @db.Text
-  category                       String?   @db.Text
-  adv_rate                       String?   @db.Text
-  sales_amount                   String?   @db.Text
-  ad_cvr                         String?   @db.Text
-  asoas                          String?   @db.Text
-  remark                         String?   @db.Text
-  mid                            String?   @db.Text
-  seller_id                      String?   @db.Text
-  account_name                   String?   @db.Text
-  seller_account_id              String?   @db.Text
-  region                         String?   @db.Text
-  country                        String?   @db.Text
-  id                             String?   @db.Text
-  local_sku                      String?   @db.Text
-  local_name                     String?   @db.Text
-
-  @@ignore
-}
-
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
-model product_Inventory {
-  date                           String? @db.Text
-  sku                            String? @db.Text
-  fnsku                          String? @db.Text
-  asin                           String? @db.Text
-  product_name                   String? @db.Text
-  condition                      String? @db.Text
-  mfn_listing_exists             String? @db.Text
-  mfn_fulfillable_quantity       String? @db.Text
-  afn_listing_exists             String? @db.Text
-  afn_warehouse_quantity         String? @db.Text
-  afn_fulfillable_quantity       String? @db.Text
-  afn_unsellable_quantity        String? @db.Text
-  afn_reserved_quantity          String? @db.Text
-  afn_total_quantity             String? @db.Text
-  per_unit_volume                String? @db.Text
-  afn_inbound_working_quantity   String? @db.Text
-  afn_inbound_shipped_quantity   String? @db.Text
-  afn_inbound_receiving_quantity String? @db.Text
-  your_price                     String? @db.Text
-  cg_price                       String? @db.Text
-  landed_price                   String? @db.Text
-
-  @@ignore
-}
-
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
-model product_info {
-  pid                String? @db.Text
-  local_sku          String? @db.Text
-  sku                String? @db.Text
-  asin               String? @db.Text
-  sid                String? @db.Text
-  product_deparment  String? @db.Text
-  product_category_1 String? @db.Text
-  product_category_2 String? @db.Text
-  product_category_3 String? @db.Text
-
-  @@ignore
-}
-
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
-model product_list {
-  date               String? @db.Text
-  id                 Int?
-  cid                Int?
-  category_name      String? @db.Text
-  bid                Int?
-  brand_name         String? @db.Text
-  sku                String? @db.Text
-  product_name       String? @db.Text
-  pic_url            String? @db.Text
-  cg_delivery        Int?
-  cg_transport_costs Float?
-  cg_price           Float?
-  status             Int?
-  status_text        String? @db.Text
-  is_combo           Int?
-  create_time        Int?
-  product_developer  String? @db.Text
-
-  @@ignore
-}
-
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
-model product_performance {
-  date                           String? @db.Text
-  sid                            String? @db.Text
-  id                             String? @db.Text
-  gmt_modified                   String? @db.Text
-  price                          String? @db.Text
-  small_image_url                String? @db.Text
-  item_name                      String? @db.Text
-  cid                            String? @db.Text
-  bid                            String? @db.Text
-  avaiable_days                  String? @db.Text
-  order_items                    String? @db.Text
-  volume                         String? @db.Text
-  amount                         String? @db.Text
-  sessions                       String? @db.Text
-  buy_box_percentage             String? @db.Text
-  page_views                     String? @db.Text
-  clicks                         String? @db.Text
-  impressions                    String? @db.Text
-  total_spend                    String? @db.Text
-  ctr                            String? @db.Text
-  avg_cpc                        String? @db.Text
-  rank                           String? @db.Text
-  reviews                        String? @db.Text
-  avg_star                       String? @db.Text
-  conversion_rate                String? @db.Text
-  total_spend_rate               String? @db.Text
-  afn_fulfillable_quantity       String? @db.Text
-  reserved_fc_transfers          String? @db.Text
-  reserved_fc_processing         String? @db.Text
-  reserved_customerorders        String? @db.Text
-  afn_inbound_shipped_quantity   String? @db.Text
-  afn_unsellable_quantity        String? @db.Text
-  afn_inbound_receiving_quantity String? @db.Text
-  afn_inbound_working_quantity   String? @db.Text
-  acos                           String? @db.Text
-  acoas                          String? @db.Text
-  order_quantity                 String? @db.Text
-  category                       String? @db.Text
-  pid                            String? @db.Text
-  adv_rate                       String? @db.Text
-  sales_amount                   String? @db.Text
-  ad_cvr                         String? @db.Text
-  asoas                          String? @db.Text
-  remark                         String? @db.Text
-
-  @@ignore
-}
-
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
-model product_profits {
-  date               String? @db.Text
-  asin               String? @db.Text
-  shop_name          String? @db.Text
-  country            String? @db.Text
-  local_name         String? @db.Text
-  local_sku          String? @db.Text
-  category           String? @db.Text
-  brand              String? @db.Text
-  amount             Float?
-  volume             Int?
-  volume_dqd         Int?
-  refund_orders      Int?
-  refund             Float?
-  refund_rate        String? @db.Text
-  fba_fees           Float?
-  selling_fees       Float?
-  promotional        Float?
-  cg_cost            Float?
-  cp_cost            Float?
-  cg_transport_costs Float?
-
-  @@ignore
-}
-
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
-model profit_sp {
-  date                DateTime? @db.Date
-  asin                String?   @db.Text
-  shop_name           String?   @db.Text
-  country             String?   @db.Text
-  local_name          String?   @db.Text
-  local_sku           String?   @db.Text
-  category            String?   @db.Text
-  brand               String?   @db.Text
-  amount              String?   @db.Text
-  volume              String?   @db.Text
-  volume_dqd          String?   @db.Text
-  refund_orders       String?   @db.Text
-  refund              String?   @db.Text
-  refund_rate         String?   @db.Text
-  fba_fees            String?   @db.Text
-  selling_fees        String?   @db.Text
-  promotional         String?   @db.Text
-  cg_cost             String?   @db.Text
-  cp_cost             String?   @db.Text
-  cg_transport_costs  String?   @db.Text
-  ad_cost             String?   @db.Text
-  ad_orders           String?   @db.Text
-  gorss_profit        String?   @db.Text
-  gorss_profit_margin String?   @db.Text
-  pid                 String?   @db.Text
-
-  @@ignore
-}
-
 model rate_lists {
   code_date String  @id @db.VarChar(255)
   name      String? @db.VarChar(255)
@@ -555,20 +139,73 @@ model rate_lists {
   code      String? @db.VarChar(255)
 }
 
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
-model shop_list {
-  sid               String? @db.Text
-  mid               String? @db.Text
-  shop_name         String? @db.Text
-  seller_id         String? @db.Text
-  account_name      String? @db.Text
-  seller_account_id String? @db.Text
-  region            String? @db.Text
-  country           String? @db.Text
-
-  @@ignore
+model sb_campaigns {
+  clicks        String? @db.VarChar(255)
+  cost          String? @db.VarChar(255)
+  currency_code String? @db.VarChar(255)
+  impressions   String? @db.VarChar(255)
+  order_num     String? @db.VarChar(255)
+  sales_amount  String? @db.VarChar(255)
+  id            String  @id @db.VarChar(255)
+  profile_id    String? @db.VarChar(255)
+  portfolio_id  String? @db.VarChar(255)
+  group_name    String? @db.VarChar(255)
+  date_str      String? @db.VarChar(255)
 }
 
-model test1 {
-  idtest1 Int @id
+model sd_campaigns {
+  id                   String  @id @db.VarChar(255)
+  local_sku            String? @db.VarChar(255)
+  local_sku_sid        String? @db.VarChar(255)
+  total_impressions    String? @db.VarChar(255)
+  total_order_quantity String? @db.VarChar(255)
+  total_sales_amount   String? @db.VarChar(255)
+  currency_icon        String? @db.VarChar(255)
+  date_str             String? @db.VarChar(255)
+  total_clicks         String? @db.VarChar(255)
+  total_cpc            String? @db.VarChar(255)
+  currency_code        String? @db.VarChar(255)
+  mid                  String? @db.VarChar(255)
+  sid                  String? @db.VarChar(255)
+  local_name           String? @db.VarChar(255)
+  total_cost           String? @db.VarChar(255)
+}
+
+model sku_lists {
+  local_sku_sid String  @id @db.VarChar(255)
+  pid_sid       String? @db.VarChar(255)
+  pid           String? @db.VarChar(255)
+  local_sku     String? @db.VarChar(255)
+  local_name    String? @db.VarChar(255)
+  sku           String? @db.VarChar(255)
+  asin          String? @db.VarChar(255)
+  sid           String? @db.VarChar(255)
+  mid           String? @db.VarChar(255)
+  portfolio_id  String? @db.VarChar(255)
+  country       String? @db.VarChar(255)
+  cid           String? @db.VarChar(255)
+  category_text String? @db.VarChar(255)
+}
+
+model sp_campaigns {
+  id                   String  @id @db.VarChar(255)
+  local_sku            String? @db.VarChar(255)
+  local_sku_sid        String? @db.VarChar(255)
+  total_impressions    String? @db.VarChar(255)
+  total_order_quantity String? @db.VarChar(255)
+  total_sales_amount   String? @db.VarChar(255)
+  currency_icon        String? @db.VarChar(255)
+  date_str             String? @db.VarChar(255)
+  total_clicks         String? @db.VarChar(255)
+  total_cpc            String? @db.VarChar(255)
+  currency_code        String? @db.VarChar(255)
+  mid                  String? @db.VarChar(255)
+  sid                  String? @db.VarChar(255)
+  local_name           String? @db.VarChar(255)
+  total_cost           String? @db.VarChar(255)
+}
+
+model sku_name_tables {
+  sku_name String @db.Text
+  id       Int    @id
 }
