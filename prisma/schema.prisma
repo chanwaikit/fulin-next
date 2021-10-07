@@ -209,3 +209,9 @@ model sku_name_tables {
   sku_name String @db.Text
   id       Int    @id
 }
+
+model daily_records {
+  update_date_str String? @db.VarChar(255)
+  date_str        String  @id @db.VarChar(255)
+}
+
