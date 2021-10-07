@@ -1,9 +1,5 @@
 {
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
-  "/_document": "pages/_document.js",
-  "/api/statistic/updateAdGroup": "pages/api/statistic/updateAdGroup.js",
-  "/api/statistic/getAdGroup": "pages/api/statistic/getAdGroup.js",
-  "/next/dist/pages/_error": "pages/next/dist/pages/_error.js",
-  "/api/statistic/getSkuAdTable": "pages/api/statistic/getSkuAdTable.js"
+  "/_document": "pages/_document.js"
 }
