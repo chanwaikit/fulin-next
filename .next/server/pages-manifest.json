@@ -1,9 +1,20 @@
 {
   "/_app": "pages/_app.js",
+  "/api/hello": "pages/api/hello.js",
+  "/api/statistic/getAdGroup": "pages/api/statistic/getAdGroup.js",
+  "/api/statistic/getAllStatistic": "pages/api/statistic/getAllStatistic.js",
+  "/api/statistic/getCampaigns": "pages/api/statistic/getCampaigns.js",
+  "/api/statistic/getCampaignsWeekData": "pages/api/statistic/getCampaignsWeekData.js",
+  "/api/statistic/getCountryStatistic": "pages/api/statistic/getCountryStatistic.js",
+  "/api/statistic/getLocalSkuMidList": "pages/api/statistic/getLocalSkuMidList.js",
+  "/api/statistic/getSkuAdTable": "pages/api/statistic/getSkuAdTable.js",
+  "/api/statistic/getSkuNameTable": "pages/api/statistic/getSkuNameTable.js",
+  "/api/statistic/getSkuStatistic": "pages/api/statistic/getSkuStatistic.js",
+  "/api/statistic/getWeekData": "pages/api/statistic/getWeekData.js",
+  "/api/statistic/updateAdGroup": "pages/api/statistic/updateAdGroup.js",
+  "/api/statistic/updateSkuNameTable": "pages/api/statistic/updateSkuNameTable.js",
+  "/": "pages/index.html",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/api/statistic/updateAdGroup": "pages/api/statistic/updateAdGroup.js",
-  "/api/statistic/getAdGroup": "pages/api/statistic/getAdGroup.js",
-  "/next/dist/pages/_error": "pages/next/dist/pages/_error.js",
-  "/api/statistic/getSkuAdTable": "pages/api/statistic/getSkuAdTable.js"
+  "/404": "pages/404.html"
 }
