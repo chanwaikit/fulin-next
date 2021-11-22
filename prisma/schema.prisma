@@ -215,3 +215,23 @@ model daily_records {
   date_str        String  @id @db.VarChar(255)
 }
 
+model local_sku_positions {
+  name             String? @db.VarChar(255)
+  sid              String? @db.VarChar(255)
+  bid              String? @db.VarChar(255)
+  keywords         String? @db.VarChar(255)
+  asin             String? @db.VarChar(255)
+  sp_sum           String? @db.VarChar(255)
+  natural_sum      String? @db.VarChar(255)
+  sp_all_sum       String? @db.VarChar(255)
+  natural_all_sum  String? @db.VarChar(255)
+  sp_sort          String? @db.VarChar(255)
+  sp_all_sort      String? @db.VarChar(255)
+  natural_sort     String? @db.VarChar(255)
+  natural_all_sort String? @db.VarChar(255)
+  sp_all_page      String? @db.VarChar(255)
+  sp_page          String? @db.VarChar(255)
+  natural_all_page String? @db.VarChar(255)
+  natural_page     String? @db.VarChar(255)
+  name_time        String  @id @db.VarChar(255)
+}
