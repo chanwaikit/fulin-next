@@ -5,6 +5,9 @@ async function main() {
   // const users = await prisma.jobs.findMany();
   // console.log(users);
   // return users
+
+  // npx prisma introspect
+  
   const nowTime = new Date().getTime();
   const end_date = dayjs(nowTime - 24 * 60 * 60 * 1000).format('YYYY-MM-DD');
   const start_date = dayjs(nowTime - 365 * 24 * 60 * 60 * 1000).format('YYYY-MM-DD');

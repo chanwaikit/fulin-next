@@ -26,6 +26,7 @@ model local_shop_lists {
   profile_id              String?                   @db.VarChar(255)
   region                  String?                   @db.VarChar(255)
   timezone                String?                   @db.VarChar(255)
+  teika_open              String?                   @db.VarChar(255)
   local_sku_mid_sb_groups local_sku_mid_sb_groups[]
   local_sku_mid_sp_groups local_sku_mid_sp_groups[]
 }
@@ -90,6 +91,10 @@ model local_sku_mid_profit_lists {
   sbv_sales_amount         Decimal? @db.Decimal(65, 2)
   sbv_cost                 Decimal? @db.Decimal(65, 2)
   channel_fee              Decimal? @db.Decimal(65, 2)
+  sp_teika_cost            Decimal? @db.Decimal(65, 2)
+  sb_teika_cost            Decimal? @db.Decimal(65, 2)
+  sbv_teika_cost           Decimal? @db.Decimal(65, 2)
+  sd_teika_cost            Decimal? @db.Decimal(65, 2)
 }
 
 model local_sku_mid_sb_groups {
@@ -151,6 +156,7 @@ model sb_campaigns {
   portfolio_id  String? @db.VarChar(255)
   group_name    String? @db.VarChar(255)
   date_str      String? @db.VarChar(255)
+  teika_cost    String? @db.VarChar(255)
 }
 
 model sd_campaigns {
@@ -169,6 +175,7 @@ model sd_campaigns {
   sid                  String? @db.VarChar(255)
   local_name           String? @db.VarChar(255)
   total_cost           String? @db.VarChar(255)
+  teika_cost           String? @db.VarChar(255)
 }
 
 model sku_lists {
@@ -203,6 +210,7 @@ model sp_campaigns {
   sid                  String? @db.VarChar(255)
   local_name           String? @db.VarChar(255)
   total_cost           String? @db.VarChar(255)
+  teika_cost           String? @db.VarChar(255)
 }
 
 model sku_name_tables {
@@ -235,3 +243,4 @@ model local_sku_positions {
   natural_page     String? @db.VarChar(255)
   name_time        String  @id @db.VarChar(255)
 }
+

@@ -12,7 +12,6 @@ export default apiHandler().post(async(req,res) => {
   let Shops = await prisma.local_shop_lists.findMany({
     
   })
-  
   res.send({
     response:Shops
   })

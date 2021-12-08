@@ -66,6 +66,7 @@ export default apiHandler().post(async(req,res) => {
       sku.ad_sales_amount = 0;
       sku.product_volume = 0;
 
+      sku.teika_cost=0;
       sku.spCost = 0;
       sku.spOrderNum = 0;
       sku.spImpressions = 0;
@@ -104,6 +105,12 @@ export default apiHandler().post(async(req,res) => {
         const ad_orders = Number(element.sp_orders || 0) + Number(element.sb_orders || 0) + Number(element.sbv_orders || 0) + Number(element.sd_orders || 0);
         const ad_sales_amount = Number(element.sp_sales_amount || 0) + Number(element.sales_amount || 0) + Number(element.sbv_sales_amount || 0) + Number(element.sd_sales_amount || 0);
         const ad_clicks = Number(element.sp_clicks || 0) + Number(element.sb_clicks || 0) + Number(element.sbv_clicks || 0) + Number(element.sd_clicks || 0);
+        const teika_cost = Number(element.sp_teika_cost || 0) + Number(element.sb_teika_cost || 0) + Number(element.sbv_teika_cost || 0) + Number(element.sd_teika_cost || 0);
+
+        // if(element.local_sku == 'LM-166_Gold_US_FURIDEN'){
+          console.log(110,teika_cost)
+          // console.log(element)
+        // }        
 
         sku.total_volume += Number(element.total_volume);
         sku.product_volume += Number(element.volume);
@@ -112,6 +119,7 @@ export default apiHandler().post(async(req,res) => {
 
         sku.gross_profit += Number(gross_profit) * ratio;
         sku.cost += ad_cost * ratio;
+        sku.teika_cost += (teika_cost || 0) * ratio;
         sku.sales_amount += Number(element.total_amount) * ratio;
         sku.ad_sales_amount += Number(ad_sales_amount) * ratio;
         sku.cid = element.cid;
